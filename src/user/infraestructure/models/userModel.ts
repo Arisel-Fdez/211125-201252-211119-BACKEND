@@ -1,10 +1,15 @@
 import { Model, DataType, Table, Column } from 'sequelize-typescript';
+import { HasMany } from 'sequelize-typescript';
+import UserPublicationModel from '../../../publication/infraestructure/models/userPublicationModel';
 
 @Table({
     tableName: 'users',
     timestamps: true 
 })
 class UserModel extends Model {
+    @HasMany(() => UserPublicationModel)
+    public publications!: UserPublicationModel[];
+    
     @Column({
         type: DataType.INTEGER.UNSIGNED,
         autoIncrement: true,

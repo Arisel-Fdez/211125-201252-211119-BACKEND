@@ -1,22 +1,29 @@
 import { Model, DataType, Table, Column } from 'sequelize-typescript';
+import { ForeignKey, BelongsTo } from 'sequelize-typescript';
+import UserModel from '../../../user/infraestructure/models/userModel';
 
 @Table({
     tableName: 'publication',
     timestamps: true 
 })
 class UserPublicationModel extends Model {
+
+    @ForeignKey(() => UserModel)
+    @Column({
+        type: DataType.INTEGER.UNSIGNED,
+        allowNull: false
+    })
+    public userId!: number;
+    
+    @BelongsTo(() => UserModel)
+    public user!: UserModel;
+
     @Column({
         type: DataType.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true
     })
     public id!: number;
-    
-    @Column({
-        type: DataType.STRING(128),
-        allowNull: false
-    })
-    public userId!: string;
 
     @Column({
         type: DataType.STRING(128),

@@ -7,7 +7,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 export class UserPublicationController {
-    constructor(readonly userPublicationUseCase: UserPublicationUseCase) { }
+    constructor(private readonly userPublicationUseCase: UserPublicationUseCase) { }
 
     async run(req: Request, res: Response) {
         try {
@@ -16,27 +16,36 @@ export class UserPublicationController {
                     return res.status(400).send({ status: "error", message: "Error al subir multimedia." });
                 }
 
-                let { userId, description, multimedia } = req.body;
+                // Utilizamos userId como un número directamente
+                const userId: number = req.body.userId;
+                const description: string = req.body.description;
 
                 if (req.file) {
                     const bucket = admin.storage().bucket();
                     const blob = bucket.file(req.file.originalname);
                     const blobStream = blob.createWriteStream();
 
-                    blobStream.on('error', (err: any) => {
+                    blobStream.on('error', (err) => {
                         console.error('Error al subir archivo:', err);
                         return res.status(500).send({ status: "error", message: "Error al subir multimedia a Firebase." });
                     });
 
                     blobStream.on('finish', async () => {
-                        const publicUrl = `https://firebasestorage.googleapis.com/v0/b/backsocialmovil.appspot.com/o/${encodeURI(blob.name)}?alt=media`;
+                        const publicUrl = `https://firebasestorage.googleapis.com/v0/b/backsocialmovil.appspot.com/o/${encodeURIComponent(blob.name)}?alt=media`;
 
-                        let createdPublication = await this.userPublicationUseCase.run(userId, description, publicUrl);
+                        let createdPublication;
+                        try {
+                            createdPublication = await this.userPublicationUseCase.run(userId, description, publicUrl);
+                        } catch (useCaseError) {
+                            console.error('Error al crear la publicación:', useCaseError);
+                            return res.status(500).send({ status: "error", message: "Error al procesar la publicación." });
+                        }
 
                         if (createdPublication) {
                             return res.status(201).send({
                                 status: "success",
                                 data: {
+                                    id: createdPublication.id,
                                     description: createdPublication.description,
                                     multimedia: publicUrl
                                 },
@@ -46,8 +55,7 @@ export class UserPublicationController {
                             return res.status(400).send({
                                 status: "error",
                                 data: [],
-                                validations: [], // TODO: implementar validaciones
-                                message: "Error al crear la publicación, intentalo más tarde."
+                                message: "No se pudo crear la publicación, intente más tarde."
                             });
                         }
                     });
@@ -58,7 +66,7 @@ export class UserPublicationController {
                 }
             });
         } catch (error) {
-            console.error("Error en PublicationController:", error);
+            console.error("Error en UserPublicationController:", error);
             res.status(500).send({
                 status: "error",
                 message: "Error interno del servidor."

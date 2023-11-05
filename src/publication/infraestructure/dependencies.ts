@@ -12,8 +12,8 @@ import { ViewAudiosController } from "./controller/viewAudioController";
 import { ViewAudiosUseCase } from "../application/viewAudioUseCase";
 import { ViewGifsController } from "./controller/viewGifsController";
 import { ViewGifsUseCase } from "../application/viewGifsUseCase";
-import { ViewPDFsController } from "./controller/viewPDFsController";
-import { ViewPDFsUseCase } from "../application/viewPDFsUseCase";
+import { ViewPDFController } from "./controller/viewPDFsController";
+import { ViewPDFUseCase } from "../application/viewPDFsUseCase";
 import { ViewVideosController } from "./controller/viewVideosController";
 import { ViewVideosUseCase } from "../application/viewVideosUseCase";
 
@@ -28,17 +28,17 @@ export const viewPublicationsController = new ViewPublicationsController(viewPub
 export const deletePublicationController = new DeletePublicationController(deletePublicationUseCase);
 
 
-export const viewImagesUseCase = new ViewImagesUseCase(); 
+export const viewImagesUseCase = new ViewImagesUseCase(pgsqlUsersRepository); 
 export const viewImagesController = new ViewImagesController(viewImagesUseCase);
 
-export const viewAudiosUseCase = new ViewAudiosUseCase();
+export const viewAudiosUseCase = new ViewAudiosUseCase(pgsqlUsersRepository);
 export const viewAudioController = new ViewAudiosController(viewAudiosUseCase);
 
-export const viewGifsUseCase = new ViewGifsUseCase();
+export const viewGifsUseCase = new ViewGifsUseCase(pgsqlUsersRepository);
 export const viewGifsController = new ViewGifsController(viewGifsUseCase);
 
-export const viewPDFsUseCase = new ViewPDFsUseCase();
-export const viewPDFsController = new ViewPDFsController(viewPDFsUseCase);
+export const viewPDFsUseCase = new ViewPDFUseCase(pgsqlUsersRepository);
+export const viewPDFsController = new ViewPDFController(viewPDFsUseCase);
 
-export const viewVideosUseCase = new ViewVideosUseCase();
+export const viewVideosUseCase = new ViewVideosUseCase(pgsqlUsersRepository);
 export const viewVideosController = new ViewVideosController(viewVideosUseCase);

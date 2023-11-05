@@ -1,17 +1,33 @@
 import { Request, Response } from "express";
+import * as admin from 'firebase-admin';
 import { ViewGifsUseCase } from "../../application/viewGifsUseCase";
 
 export class ViewGifsController {
-    
-    constructor(readonly viewGifsUseCase: ViewGifsUseCase) {}
+    constructor(private viewGifsUseCase: ViewGifsUseCase) {}
 
     async run(req: Request, res: Response) {
-        try {
-            const gifs = await this.viewGifsUseCase.execute();
-            res.status(200).send(gifs);
-        } catch (error) {
-            console.error("Error al obtener GIFs:", error);
-            res.status(500).send({ message: "Error al obtener GIFs" });
-        }
+        const publications = await this.viewGifsUseCase.run();
+
+        // Añade el token a la URL de multimedia de cada publicación
+        const publicationsWithDownloadURLs = await Promise.all(publications.map(async publication => {
+            if (publication.multimedia) {
+                const bucket = admin.storage().bucket();
+                const fileName = decodeURIComponent(publication.multimedia.split('/o/')[1].split('?alt=media')[0]);
+                const file = bucket.file(fileName);
+
+                try {
+                    const [downloadURL] = await file.getSignedUrl({
+                        action: 'read',
+                        expires: '03-09-2491'  // Esta fecha es solo un ejemplo, ajusta según tus necesidades
+                    });
+                    publication.multimedia = downloadURL;
+                } catch (error) {
+                    console.error("Error al obtener la URL de descarga:", error);
+                }
+            }
+            return publication;
+        }));
+
+        res.status(200).send(publicationsWithDownloadURLs);
     }
 }
