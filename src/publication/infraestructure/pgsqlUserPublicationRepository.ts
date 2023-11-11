@@ -50,6 +50,31 @@ export class PgsqlUserPublicationRepository implements UserPublicationRepository
         }
     }
 
+
+    async getPublicationsByUserId(userId: number): Promise<UserPublication[]> {
+        try {
+            const publications = await UserPublicationModel.findAll({
+                where: { userId },
+                include: [{
+                    model: UserModel,
+                    attributes: ['name', 'last_name', 'profilePicture'],
+                }]
+            });
+
+            return publications.map(pub => new UserPublication(
+                pub.id, 
+                pub.userId.toString(), 
+                pub.description, 
+                pub.multimedia, 
+                pub.user.profilePicture, 
+                `${pub.user.name} ${pub.user.last_name}`
+            ));
+        } catch (error) {
+            console.error("Error en PgsqlUserPublicationRepository:", error);
+            return [];
+        }
+    }
+
     async getAudioPublications(): Promise<UserPublication[]> {
         try {
             const publications = await UserPublicationModel.findAll({

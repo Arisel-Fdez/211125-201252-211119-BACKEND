@@ -16,6 +16,8 @@ import { ViewPDFController } from "./controller/viewPDFsController";
 import { ViewPDFUseCase } from "../application/viewPDFsUseCase";
 import { ViewVideosController } from "./controller/viewVideosController";
 import { ViewVideosUseCase } from "../application/viewVideosUseCase";
+import { GetUserPublicationsUseCase } from "../application/getUserPublicationsUseCase";
+import { GetUserPublicationsController } from "./controller/getUserPublicationsController";
 
 export const pgsqlUsersRepository = new PgsqlUserPublicationRepository();
 
@@ -26,6 +28,10 @@ export const deletePublicationUseCase = new DeletePublicationUseCase(pgsqlUsersR
 export const userPublicationController = new UserPublicationController(userPublicationUseCase);
 export const viewPublicationsController = new ViewPublicationsController(viewPublicationsUseCase);
 export const deletePublicationController = new DeletePublicationController(deletePublicationUseCase);
+
+export const getUserPublicationsUseCase = new GetUserPublicationsUseCase(pgsqlUsersRepository);
+export const getUserPublicationsController  = new GetUserPublicationsController(getUserPublicationsUseCase);
+
 
 
 export const viewImagesUseCase = new ViewImagesUseCase(pgsqlUsersRepository); 

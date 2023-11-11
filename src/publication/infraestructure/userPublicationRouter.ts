@@ -7,7 +7,8 @@ import {
     viewAudioController,
     viewGifsController,
     viewPDFsController,
-    viewVideosController
+    viewVideosController,
+    getUserPublicationsController
 } from "./dependencies";
 //import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 
@@ -34,6 +35,8 @@ userPublicationRouter.delete(
     "/publication/:id", 
     deletePublicationController.run.bind(deletePublicationController)
 );
+
+userPublicationRouter.get("/:userId/publications", getUserPublicationsController.run.bind(getUserPublicationsController));
 
 // Ruta para obtener imágenes de Firebase
 userPublicationRouter.get('/images', viewImagesController.run.bind(viewImagesController));
