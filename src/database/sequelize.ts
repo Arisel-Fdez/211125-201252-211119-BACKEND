@@ -1,16 +1,15 @@
+import dotenv from "dotenv";
 import { Sequelize } from 'sequelize-typescript';
-
 import UserModel from '../user/infraestructure/models/userModel';
-import UserPublicationModel from '../publication/infraestructure/models/userPublicationModel';
-import LikeModel from '../reaction/infraestructure/models/likeModel';
+import AccountModel from '../personalFinances/account/infraestructure/models/accountModel';
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    username: 'postgres',
-    password: 'yeremi224',
-    models: [UserModel, UserPublicationModel, LikeModel],
+    host: process.env.DB_HOST,
+    database: "postgres",
+    username: "postgres",
+    password: "232001",
+    models: [UserModel, AccountModel],
 });
 
 export async function initializeDatabase() {

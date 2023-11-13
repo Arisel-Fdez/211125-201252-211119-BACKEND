@@ -1,21 +1,24 @@
 import express from 'express';
 import { Signale } from 'signale';
+import cors from 'cors';
+import * as admin from 'firebase-admin';
+import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
+
+
 import { initializeDatabase } from './database/sequelize'; 
 import { userRouter } from './user/infraestructure/userRouter';
 import { authRouter } from './auth/infraestructure/authRouter';
-import * as admin from 'firebase-admin';
-import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
-import { userPublicationRouter } from './publication/infraestructure/userPublicationRouter';
-import { likeRouter } from './reaction/infraestructure/likeRouter';
+
 
 const app = express();
+app.use(cors()); // Usa cors como un middleware
+
 const signale = new Signale();
 
 app.use(express.json());
 app.use('/user',userRouter);
 app.use("/login",authRouter);
-app.use('/publication',userPublicationRouter);
-app.use('/reaction',likeRouter)
+
 
 async function startServer() {
     try {
