@@ -14,5 +14,5 @@ export interface TransactionRepository {
     
     delTransaction(id: string): Promise<string|Error>;
 
-    getTransactions(accountId: number): Promise<Transaction[]|Error|string>
+    getAllTransactions(accountId: number): Promise<Transaction[]|Error|string>
 }

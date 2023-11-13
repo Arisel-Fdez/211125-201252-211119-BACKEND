@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { GetTransactionsUseCase } from "../../apllication/getTransacitionsUseCase";
+import { GetAllTransacitionsUseCase } from "../../apllication/getAllTransacitionsUseCase";
 
-export class GetTransactionsController {
-    constructor(private readonly getTransactionsUseCase: GetTransactionsUseCase) { }
+export class GetAllTransacitionsController {
+    constructor(private readonly getAllTransacitionsUseCase: GetAllTransacitionsUseCase) { }
 
     async run(req: Request, res: Response) {
         try {
             let { accountId } = req.params;
 
-            const result = await this.getTransactionsUseCase.run(parseInt(accountId));
+            const result = await this.getAllTransacitionsUseCase.run(parseInt(accountId));
             if (result instanceof Error) {
                 return res.status(404).send({
                     status: "error",

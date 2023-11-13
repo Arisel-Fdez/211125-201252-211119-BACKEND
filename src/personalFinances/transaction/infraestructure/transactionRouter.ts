@@ -1,11 +1,16 @@
 import express from "express";
-import { 
+import {
     createTransactionController,
     getTransactionController,
-    getTransactionsController
+    getAllTransacitionsController
 } from "./dependencies";
 
 export const transactionRouter = express.Router();
+
+transactionRouter.get(
+    "/get/:id/:accountId",
+    getTransactionController.run.bind(getTransactionController)
+);
 
 transactionRouter.post(
     "/create/account",
@@ -13,12 +18,7 @@ transactionRouter.post(
 );
 
 transactionRouter.get(
-    "/get/:id/:accountId",
-    getTransactionsController.run.bind(getTransactionsController)
-);
-
-transactionRouter.get(
-    "/get/all/:accountId",
-    getTransactionController.run.bind(getTransactionController)
+    "/list/all/:accountId",
+    getAllTransacitionsController.run.bind(getAllTransacitionsController)
 );
 

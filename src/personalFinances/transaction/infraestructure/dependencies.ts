@@ -6,8 +6,8 @@ import { CreateTransactionController } from "./controller/createTransactionContr
 import { GetTransactionUseCase } from "../apllication/getTransactionUseCase";
 import { GetTransactionController } from "./controller/getTransactionController";
 
-import { GetTransactionsUseCase } from "../apllication/getTransacitionsUseCase";
-import { GetTransactionsController } from "./controller/getTransactionsController";
+import { GetAllTransacitionsUseCase } from "../apllication/getAllTransacitionsUseCase";
+import { GetAllTransacitionsController } from "./controller/getAllTransactionsController";
 
 const pgsqlUsersRepository = new PgsqlTransactionRepository();
 
@@ -17,5 +17,5 @@ export const createTransactionController = new CreateTransactionController(creat
 const getTransactionUseCase = new GetTransactionUseCase(pgsqlUsersRepository);
 export const getTransactionController = new GetTransactionController(getTransactionUseCase);
 
-const getTransactionsUseCase = new GetTransactionsUseCase(pgsqlUsersRepository);
-export const getTransactionsController = new GetTransactionsController(getTransactionsUseCase);
+const getAllTransacitionsUseCase = new GetAllTransacitionsUseCase(pgsqlUsersRepository);
+export const getAllTransacitionsController = new GetAllTransacitionsController(getAllTransacitionsUseCase);

@@ -11,17 +11,13 @@ export class GetTransactionUseCase {
     ): Promise<Transaction | Error | string> {
         try {
             if (!id || !accountId) {
-                return new Error('No se pudo crear la cuenta');
+                return new Error('No se pudo recuperar ninguna informacion');
             }
 
             const transaccion = await this.transactionRepository.getTransaction(id, accountId);
-            if (transaccion !== "success") {
-                return new Error('No se pudo crear la transaccion');
-            }
-
             return transaccion;
         } catch (Error: any) {
-            return new Error('Error al crear transaccion: ' + Error.message);
+            return new Error('Error al listar las transacciones: ' + Error.message);
         }
     }
 }

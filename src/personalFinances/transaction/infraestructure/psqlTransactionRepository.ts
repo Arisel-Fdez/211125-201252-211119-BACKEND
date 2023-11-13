@@ -17,6 +17,7 @@ export class PgsqlTransactionRepository implements TransactionRepository {
     async getTransaction(id: number, accountId: number): Promise<string | Transaction | Error> {
         try {
             const transaction = await TransactionModel.findOne({ where: { id, accountId } });
+            console.log('transaction', transaction)
             if (!transaction) {
                 return new Error('Cuenta no encontrada');
             }
@@ -30,7 +31,7 @@ export class PgsqlTransactionRepository implements TransactionRepository {
         throw new Error("Method not implemented.");
     }
 
-    async getTransactions(accountId: number): Promise<string | Transaction[] | Error> {
+    async getAllTransactions(accountId: number): Promise<string | Transaction[] | Error> {
         try {
             const transactions = await TransactionModel.findAll({ where: { accountId } });
             
