@@ -10,9 +10,9 @@ export class PgsqlTransactionRepository implements AccountRepository {
 
     async getAccountBalance(id: number, userId: number): Promise<Account | Error> {
         try {
-            const account = await AccountModel.findOne({ where: { userId }});
+            const account = await AccountModel.findOne({ where: { id, userId }});
             if (!account) {
-                throw new Error('Cuenta no encontrada');
+                return new Error('Cuenta no encontrada');
             }
             const result = new Account(account.id, account.userId, account.balance);
             return result;
@@ -21,21 +21,25 @@ export class PgsqlTransactionRepository implements AccountRepository {
         }
     }
 
-    async addBalance(userId: number, balance: number): Promise<String | Error> {
+    async addBalance(userId: number, balance: number): Promise<string | Error> {
         try {
-            const account = await AccountModel.findOne({ where: { userId }});
+            const account = await AccountModel.findOne({ where: { userId } });
             if (!account) {
-                throw new Error('Cuenta no encontrada');
+                return new Error('Cuenta no encontrada');
             }
+            const oldBalance = account.balance;
+            const newBalance = oldBalance + balance;
+            account.balance = newBalance;
 
-            account.balance += balance;
             await account.save();
-            return "success";
+            return 'success';
         } catch (error) {
             console.error('Error en la transacción:', error);
-            return "fail";
+            return 'fail';
         }
     }
+    
+    
 
     async reduceBalance(userId: number, balance: number): Promise<String | Error> {
         try {
@@ -48,27 +52,16 @@ export class PgsqlTransactionRepository implements AccountRepository {
                 throw new Error('Saldo insuficiente');
             }
 
-            account.balance -= balance;
+            const oldBalance = account.balance;
+            const newBalance = oldBalance - balance;
+            account.balance = newBalance;
             await account.save();
 
             return "success";
         } catch (error) {
-            console.error('Error en la transacción:', error);
+            console.error('Error en la transacción:');
             return "fail";
         }
     }
 
-    async getAllCountBalance(id: number, userId: number): Promise<Account[] | Error> {
-        try {
-            const account = await AccountModel.findAll({ where: { id, userId } });
-        
-            if (!account || account.length === 0) {
-                throw new Error('Cuenta no encontrada');
-            }
-             return account.map(account => new Account(account.id, account.userId, account.balance));
-
-        } catch (error: any) {
-            return new Error('Error en la transacción:'+ error.message);
-        }
-    }
 }

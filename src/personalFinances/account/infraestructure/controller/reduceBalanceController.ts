@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
-import { AddBalanceUseCase } from "../../apllication/addBalanceUseCase";
+import { ReduceBalanceUseCase } from "../../apllication/reduceBalanceUseCase";
 
-export class AddBalanceController {
-    constructor(private readonly addBalanceUseCase: AddBalanceUseCase) {}
+export class ReduceBalanceController {
+    constructor(private readonly reduceBalanceUseCase: ReduceBalanceUseCase) {}
 
     async run(req: Request, res: Response) {
         try {
             let {userId} = req.params;
             let {balance} = req.body;
 
-            const result = await this.addBalanceUseCase.run(parseInt(userId), balance);
+            const result = await this.reduceBalanceUseCase.run(userId, balance);
 
             if (result === "success") {
                 return res.status(200).send({
@@ -22,6 +22,7 @@ export class AddBalanceController {
             return res.status(404).send({
                 status: "error",
                 message: "Error al encontrar la cuenta asociada",
+                result: result
             });
         } catch (Error) {
             return res.status(500).send({

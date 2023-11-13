@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreateAccountUseCase } from "../../apllication/createAccountUseCase";
 
-export class AddBalanceController {
+export class CreateAccountController {
     constructor(private readonly createAccountUseCase: CreateAccountUseCase) {}
 
     async run(req: Request, res: Response) {

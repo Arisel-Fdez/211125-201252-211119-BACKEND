@@ -1,11 +1,11 @@
 import { Account } from "../domain/account";
 import { AccountRepository } from "../domain/accountRepository";
 
-export class ReduceBalance {
+export class ReduceBalanceUseCase {
     constructor(readonly accountRepository: AccountRepository) { }
-    async run(id: number, userId: string, balance: string): Promise<String | Error| Account> {
+    async run(userId: string, balance: string): Promise<String | Error| Account> {
         try {
-            if (userId || !balance) {
+            if (!userId || !balance) {
                 return new Error('Se deben rellenar todos los campos');
             }
 

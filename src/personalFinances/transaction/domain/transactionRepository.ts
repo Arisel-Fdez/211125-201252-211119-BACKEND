@@ -2,12 +2,11 @@ import { Transaction } from "./transaction";
 
 export interface TransactionRepository {
     createTransaction(
-        id: number, 
         date: Date, 
         type: string,
-        amount: string, 
+        amount: number, 
         description: string, 
-        categoriId: string, 
+        categoriId: number, 
         accountId: number
         ): Promise<Transaction | Error | string>;
 

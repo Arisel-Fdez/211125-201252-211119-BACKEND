@@ -3,7 +3,7 @@ import CategoryModel from '../../../category/infraestructure/models/categoryMode
 import AccountModel from '../../../account/infraestructure/models/accountModel';
 
 @Table({
-    tableName: 'publication',
+    tableName: 'transaction',
     timestamps: true
 })
 class TransactionModel extends Model {
@@ -24,7 +24,13 @@ class TransactionModel extends Model {
         type: DataType.STRING(128),
         allowNull: false
     })
-    public amount!: string;
+    public type!: string;
+
+    @Column({
+        type: DataType.INTEGER.UNSIGNED,
+        allowNull: false
+    })
+    public amount!: number;
 
     @Column({
         type: DataType.STRING(512),
@@ -37,7 +43,7 @@ class TransactionModel extends Model {
         type: DataType.INTEGER.UNSIGNED,
         allowNull: false
     })
-    public categoryId!: number;
+    public categoriId!: number;
 
     @BelongsTo(() => CategoryModel)
     public category!: CategoryModel;

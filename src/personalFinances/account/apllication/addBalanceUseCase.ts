@@ -5,7 +5,7 @@ export class AddBalanceUseCase {
     constructor(readonly accountRepository: AccountRepository) { }
     async run(userId: number, balance: number): Promise<Account | Error |String> {
         try {
-            if (userId || !balance) {
+            if (!userId || !balance) {
                 return new Error('Se deben rellenar todos los campos');
             }
 

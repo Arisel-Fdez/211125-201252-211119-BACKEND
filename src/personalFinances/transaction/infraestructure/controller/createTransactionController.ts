@@ -6,9 +6,9 @@ export class CreateTransactionController {
 
     async run(req: Request, res: Response) {
         try {
-            let { id, date,type, amount, description, categoriId, accountId } = req.body;
+            let { date,type, amount, description, categoriId, accountId } = req.body;
 
-            const result = await this.CreateTransactionUseCase.run(id, date,type, amount, description, categoriId, accountId);
+            const result = await this.CreateTransactionUseCase.run( date,type, amount, description, categoriId, accountId);
 
             if (result instanceof Error) {
                 return res.status(200).send({

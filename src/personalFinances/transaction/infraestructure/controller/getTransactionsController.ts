@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
 import { GetTransactionsUseCase } from "../../apllication/getTransacitionsUseCase";
 
-export class AddBalanceController {
+export class GetTransactionsController {
     constructor(private readonly getTransactionsUseCase: GetTransactionsUseCase) { }
 
     async run(req: Request, res: Response) {
         try {
-            let { userId } = req.params;
+            let { accountId } = req.params;
 
-            const result = await this.getTransactionsUseCase.run(parseInt(userId));
-
+            const result = await this.getTransactionsUseCase.run(parseInt(accountId));
             if (result instanceof Error) {
                 return res.status(404).send({
                     status: "error",
@@ -20,7 +19,7 @@ export class AddBalanceController {
             return res.status(200).send({
                 status: "success",
                 data: result,
-                message: "Balance actualizado con éxito",
+                message: "elementos recuperados con exito actualizado con éxito",
             });
         } catch (error) {
             return res.status(500).send({

@@ -6,20 +6,19 @@ export class CreateTransactionUseCase {
     constructor(private readonly transactionRepository: TransactionRepository) { }
 
     async run(
-        id: number,
         date: Date,
         type: string,
-        amount: string,
+        amount: number,
         description: string,
-        categoriId: string,
+        categoriId: number,
         accountId: number
     ): Promise<Transaction | Error | string> {
         try {
 
-            if (!date || !amount || !description || !categoriId || !accountId) {
+            if (!date ||!type|| !amount || !description || !categoriId || !accountId) {
                 return new Error('No se pudo crear la cuenta');
             }
-            const createTransaction = await this.transactionRepository.createTransaction(id, date,type, amount, description, categoriId, accountId);
+            const createTransaction = await this.transactionRepository.createTransaction(date, type, amount, description, categoriId, accountId);
             if (createTransaction !== "success") {
                 return new Error('No se pudo encontrar la transaccion');
             }

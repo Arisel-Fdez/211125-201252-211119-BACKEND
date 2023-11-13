@@ -3,9 +3,9 @@ export class Transaction {
         readonly id: number,
         public date: Date,
         public type: string,
-        public amount: string,
+        public amount: number,
         public description: string,
-        public categoriId: string,
+        public categoriId: number,
         public accountId: number
     ) {}
 }

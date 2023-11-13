@@ -9,15 +9,12 @@ export class GetTransactionsUseCase {
         accountId: number,
     ): Promise<Transaction[] | Error | string> {
         try {
+            console.log('accountId', accountId)
             if (!accountId) {
-                return new Error('No se pudo crear la cuenta');
+                return new Error('No se pudo recuperar ninguna informacion');
             }
 
             const transaccion = await this.transactionRepository.getTransactions(accountId);
-            if (transaccion !== "success") {
-                return new Error('No se pudo encontrar las transacciones');
-            }
-
             return transaccion;
         } catch (Error: any) {
             return new Error('Error al listar las transacciones: ' + Error.message);
