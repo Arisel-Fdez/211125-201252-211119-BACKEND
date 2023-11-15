@@ -7,6 +7,7 @@ import * as admin from 'firebase-admin';
 import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
 import { userPublicationRouter } from './publication/infraestructure/userPublicationRouter';
 import { likeRouter } from './reaction/infraestructure/likeRouter';
+import { commentRouter } from './comment/infraestructure/commentRouter';
 
 const app = express();
 const signale = new Signale();
@@ -16,6 +17,7 @@ app.use('/user',userRouter);
 app.use("/login",authRouter);
 app.use('/publication',userPublicationRouter);
 app.use('/reaction',likeRouter)
+app.use('/comment',commentRouter)
 
 async function startServer() {
     try {

@@ -3,6 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 import UserModel from '../user/infraestructure/models/userModel';
 import UserPublicationModel from '../publication/infraestructure/models/userPublicationModel';
 import LikeModel from '../reaction/infraestructure/models/likeModel';
+import CommentModel from '../comment/infraestructure/models/commentModel';
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
@@ -10,7 +11,7 @@ export const sequelize = new Sequelize({
     database: 'postgres',
     username: 'postgres',
     password: 'yeremi224',
-    models: [UserModel, UserPublicationModel, LikeModel],
+    models: [UserModel, UserPublicationModel, LikeModel, CommentModel],
 });
 
 export async function initializeDatabase() {
