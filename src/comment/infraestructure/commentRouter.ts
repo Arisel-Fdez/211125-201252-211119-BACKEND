@@ -9,7 +9,7 @@ export const commentRouter = express.Router();
 
 // Ruta para agregar un nuevo comentario a una publicación
 commentRouter.post(
-    "/publication/comment", 
+    "/publication/:publicationId/usercomment/:userId", 
     commentController.run.bind(commentController)
 );
 

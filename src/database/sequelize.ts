@@ -4,6 +4,7 @@ import UserModel from '../user/infraestructure/models/userModel';
 import UserPublicationModel from '../publication/infraestructure/models/userPublicationModel';
 import LikeModel from '../reaction/infraestructure/models/likeModel';
 import CommentModel from '../comment/infraestructure/models/commentModel';
+import CoordinateModel from '../location/infraestructure/models/coordinateModel';
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
@@ -11,7 +12,7 @@ export const sequelize = new Sequelize({
     database: 'postgres',
     username: 'postgres',
     password: 'yeremi224',
-    models: [UserModel, UserPublicationModel, LikeModel, CommentModel],
+    models: [UserModel, UserPublicationModel, LikeModel, CommentModel, CoordinateModel],
 });
 
 export async function initializeDatabase() {

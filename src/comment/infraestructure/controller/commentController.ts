@@ -5,10 +5,11 @@ export class CommentController {
     constructor(private readonly addCommentUseCase: AddCommentUseCase) { }
 
     async run(req: Request, res: Response) {
-        const { publicationId, userId, content } = req.body;
+        const { publicationId, userId } = req.params;
+        const { content } = req.body;
 
         try {
-            const comment = await this.addCommentUseCase.run(publicationId, userId, content);
+            const comment = await this.addCommentUseCase.run(Number(publicationId), Number(userId), content);
             if (comment) {
                 return res.status(201).json(comment);
             } else {
