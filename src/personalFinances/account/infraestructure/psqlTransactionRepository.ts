@@ -2,7 +2,6 @@ import { Account } from "../domain/account";
 import { AccountRepository } from "../domain/accountRepository";
 import AccountModel from "./models/accountModel";
 
-
 export class PgsqlTransactionRepository implements AccountRepository {
     createAccount(id: number, userId: number, balance: number): Promise<Account | Error> {
         throw new Error("Method not implemented.");
@@ -30,7 +29,6 @@ export class PgsqlTransactionRepository implements AccountRepository {
             const oldBalance = account.balance;
             const newBalance = oldBalance + balance;
             account.balance = newBalance;
-
             await account.save();
             return 'success';
         } catch (error) {

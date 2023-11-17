@@ -7,7 +7,7 @@ export class CreateTransactionUseCase {
 
     async run(
         date: Date,
-        type: string,
+        type: boolean,
         amount: number,
         description: string,
         categoriId: number,

@@ -21,10 +21,10 @@ class TransactionModel extends Model {
     public date!: Date;
 
     @Column({
-        type: DataType.STRING(128),
+        type: DataType.BOOLEAN, // Cambiar a BOOLEAN
         allowNull: false
     })
-    public type!: string;
+    public type!: boolean;
 
     @Column({
         type: DataType.INTEGER.UNSIGNED,

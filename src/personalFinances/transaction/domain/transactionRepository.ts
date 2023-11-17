@@ -3,7 +3,7 @@ import { Transaction } from "./transaction";
 export interface TransactionRepository {
     createTransaction(
         date: Date, 
-        type: string,
+        type: boolean,
         amount: number, 
         description: string, 
         categoriId: number, 

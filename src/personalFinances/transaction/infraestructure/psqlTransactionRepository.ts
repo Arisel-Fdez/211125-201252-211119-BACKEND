@@ -5,7 +5,7 @@ import TransactionModel from "./models/transactionModel";
 
 
 export class PgsqlTransactionRepository implements TransactionRepository {
-    async createTransaction(date: Date, type: string, amount: number, description: string, categoriId: number, accountId: number): Promise<string | Transaction | Error> {
+    async createTransaction(date: Date, type: boolean, amount: number, description: string, categoriId: number, accountId: number): Promise<string | Transaction | Error> {
         try {
             const createdTransaction = await TransactionModel.create({ date, type, amount, description, categoriId, accountId });
             return new Transaction(createdTransaction.id, createdTransaction.date, createdTransaction.type, createdTransaction.amount, createdTransaction.description, createdTransaction.categoriId, createdTransaction.accountId);
