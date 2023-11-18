@@ -10,7 +10,7 @@ export class ReduceBalanceUseCase {
             }
 
             const createdAccount = await this.accountRepository.reduceBalance(parseInt(userId), parseInt(balance));
-            if (createdAccount === null) {
+            if (createdAccount instanceof Error) {
                 return new Error('No se pudo recuperar el balance la cuenta');
             }
             return createdAccount;

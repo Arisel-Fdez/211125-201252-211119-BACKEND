@@ -3,6 +3,24 @@ import { AccountRepository } from "../domain/accountRepository";
 import AccountModel from "./models/accountModel";
 
 export class PgsqlTransactionRepository implements AccountRepository {
+    async getAllAccounts(): Promise<string | Error | Account[]> {
+        try {
+            const accounts = await AccountModel.findAll();
+            
+            if (accounts.length === 0) {
+                return new Error('No se encontraron transacciones para la cuenta');
+            }
+    
+            return accounts.map(account => new Account(
+                account.id,
+                account.userId,
+                account.balance,
+            ));
+        } catch (error) {
+            return new Error('Error en la transacción:'+ error);
+
+        }
+    }
     createAccount(id: number, userId: number, balance: number): Promise<Account | Error> {
         throw new Error("Method not implemented.");
     }

@@ -11,4 +11,6 @@ export interface AccountRepository {
 
     reduceBalance(userId: number, balance: number): Promise <String | Error>; //put
 
+    getAllAccounts(): Promise<Account[]|Error|string>
+
 }

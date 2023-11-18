@@ -2,7 +2,8 @@ import express from "express";
 import { addBalanceController,
     createAccountController,
     getAccountBalanceController,
-    reduceBalanceController } from "./dependencies";
+    reduceBalanceController,
+    getAllAccountsController } from "./dependencies";
 
 export const accountRouter = express.Router();
 
@@ -26,3 +27,7 @@ accountRouter.put(
     reduceBalanceController.run.bind(reduceBalanceController)
 );
 
+accountRouter.get(
+    "/list/all",
+    getAllAccountsController.run.bind(getAllAccountsController)
+);

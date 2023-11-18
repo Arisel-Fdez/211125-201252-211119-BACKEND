@@ -15,11 +15,12 @@ export class CreateTransactionUseCase {
     ): Promise<Transaction | Error | string> {
         try {
 
+            console.log('first', date, type, amount, description, categoriId , accountId)
             if (!date ||!type|| !amount || !description || !categoriId || !accountId) {
                 return new Error('No se pudo crear la cuenta');
             }
             const createTransaction = await this.transactionRepository.createTransaction(date, type, amount, description, categoriId, accountId);
-            if (createTransaction !== "success") {
+            if (createTransaction instanceof Error) {
                 return new Error('No se pudo encontrar la transaccion');
             }
 

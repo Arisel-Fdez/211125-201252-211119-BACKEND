@@ -1,7 +1,7 @@
 export class Account {
     constructor(
         readonly id: number,
-        public usaerId: number,
+        public userId: number,
         public balance: number
     ) {}
 }

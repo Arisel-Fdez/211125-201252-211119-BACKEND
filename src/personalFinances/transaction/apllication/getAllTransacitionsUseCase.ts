@@ -9,7 +9,6 @@ export class GetAllTransacitionsUseCase {
         accountId: number,
     ): Promise<Transaction[] | Error | string> {
         try {
-            console.log('accountId', accountId)
             if (!accountId) {
                 return new Error('No se pudo recuperar ninguna informacion');
             }

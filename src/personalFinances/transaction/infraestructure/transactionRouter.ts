@@ -13,7 +13,7 @@ transactionRouter.get(
 );
 
 transactionRouter.post(
-    "/create/account",
+    "/create",
     createTransactionController.run.bind(createTransactionController)
 );
 
