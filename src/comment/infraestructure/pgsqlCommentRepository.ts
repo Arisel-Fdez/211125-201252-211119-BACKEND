@@ -34,8 +34,14 @@ export class PgsqlCommentRepository implements CommentRepository {
     async getCommentsByUserId(userId: number): Promise<Comment[]> {
         const comments = await CommentModel.findAll({
             where: { userId },
-            include: [UserModel]
+            include: [{ model: UserModel, attributes: ['name'] }] // Asegúrate de que el nombre del campo coincida con tu modelo UserModel
         });
-        return comments.map(comment => new Comment(comment.id, comment.userId, comment.publicationId, comment.content));
+        return comments.map(comment => new Comment(
+            comment.id, 
+            comment.userId, 
+            comment.publicationId, 
+            comment.content,
+            comment.user?.name // Suponiendo que 'name' es el campo para el nombre en UserModel
+        ));
     }
 }

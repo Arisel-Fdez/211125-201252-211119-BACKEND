@@ -3,6 +3,7 @@ export class Comment {
         readonly id: number,
         readonly userId: number,
         readonly publicationId: number,
-        readonly content: string
+        readonly content: string,
+        readonly userName?: string
     ) {}
 }
