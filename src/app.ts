@@ -3,7 +3,6 @@ import { Signale } from 'signale';
 import cors from 'cors';
 import * as admin from 'firebase-admin';
 import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
-
 import { initializeDatabase } from './database/sequelize';
 import { userRouter } from './user/infraestructure/userRouter';
 import { authRouter } from './auth/infraestructure/authRouter';

@@ -13,4 +13,5 @@ export interface AccountRepository {
 
     getAllAccounts(): Promise<Account[]|Error|string>
 
+    deleteAccount(id: number, userId: number): Promise<String | Error>;
 }

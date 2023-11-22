@@ -1,15 +1,21 @@
 import { Account } from "../domain/account";
 import { AccountRepository } from "../domain/accountRepository";
+import { enviarMensaje } from "./events/productor";
 
 export class ReduceBalanceUseCase {
     constructor(readonly accountRepository: AccountRepository) { }
-    async run(userId: string, balance: string): Promise<String | Error| Account> {
+    async run(userId: number, balance: number): Promise<Account | Error |String> {
         try {
             if (!userId || !balance) {
                 return new Error('Se deben rellenar todos los campos');
             }
-
-            const createdAccount = await this.accountRepository.reduceBalance(parseInt(userId), parseInt(balance));
+            const data = {
+                balance : balance,
+                type : false
+            };
+            await enviarMensaje(data);
+            
+            const createdAccount = await this.accountRepository.reduceBalance(userId, balance);
             if (createdAccount instanceof Error) {
                 return new Error('No se pudo recuperar el balance la cuenta');
             }

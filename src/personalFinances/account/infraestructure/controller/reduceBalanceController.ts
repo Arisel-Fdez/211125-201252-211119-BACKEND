@@ -9,7 +9,7 @@ export class ReduceBalanceController {
             let {userId} = req.params;
             let {balance} = req.body;
 
-            const result = await this.reduceBalanceUseCase.run(userId, balance);
+            const result = await this.reduceBalanceUseCase.run(parseInt(userId), balance);
 
             if (result === "success") {
                 return res.status(200).send({

@@ -1,5 +1,6 @@
 import { Account } from "../domain/account";
 import { AccountRepository } from "../domain/accountRepository";
+import { enviarMensaje } from "./events/productor";
 
 export class AddBalanceUseCase {
     constructor(readonly accountRepository: AccountRepository) { }
@@ -8,12 +9,17 @@ export class AddBalanceUseCase {
             if (!userId || !balance) {
                 return new Error('Se deben rellenar todos los campos');
             }
+            const data = {
+                balance : balance,
+                type : true
+            };
+            await enviarMensaje(data);
 
-            const createdAccount = await this.accountRepository.addBalance(userId, balance);
-            if (createdAccount !== "success") {
+            const addBalance = await this.accountRepository.addBalance(userId, balance);
+            if (addBalance !== "success") {
                 return new Error('No se pudo agregar balance la cuenta');
             }
-            return createdAccount;
+            return addBalance;
         } catch (error: any) {
             return new Error('Error al agregar balance: ' + error.message);
         }

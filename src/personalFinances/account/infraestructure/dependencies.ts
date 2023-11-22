@@ -15,6 +15,9 @@ import { ReduceBalanceController } from "./controller/reduceBalanceController";
 import { GetAllAccountsUseCase } from "../apllication/getAllAccountsUseCase";
 import { GetAllAccountsController } from "./controller/getAllAccountsController";
 
+import { DeleteAccountUseCase } from "../apllication/deleteAccountUseCase";
+import { DeleteAccountController } from "./controller/deleteAccountController";
+
 const pgsqlUsersRepository = new PgsqlTransactionRepository();
 
 const addBalanceUseCase = new AddBalanceUseCase(pgsqlUsersRepository);
@@ -31,3 +34,6 @@ export const reduceBalanceController = new ReduceBalanceController(reduceBalance
 
 const getAllAccountsUseCase = new GetAllAccountsUseCase(pgsqlUsersRepository);
 export const getAllAccountsController = new GetAllAccountsController(getAllAccountsUseCase);
+
+const deleteAccountUseCase = new DeleteAccountUseCase(pgsqlUsersRepository);
+export const deleteAccountController = new DeleteAccountController(deleteAccountUseCase);

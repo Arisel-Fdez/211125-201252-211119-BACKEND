@@ -3,7 +3,8 @@ import { addBalanceController,
     createAccountController,
     getAccountBalanceController,
     reduceBalanceController,
-    getAllAccountsController } from "./dependencies";
+    getAllAccountsController,
+    deleteAccountController } from "./dependencies";
 
 export const accountRouter = express.Router();
 
@@ -30,4 +31,9 @@ accountRouter.put(
 accountRouter.get(
     "/list/all",
     getAllAccountsController.run.bind(getAllAccountsController)
+);
+
+accountRouter.delete(
+    "/delete/:id/:userId",
+    deleteAccountController.run.bind(deleteAccountController)
 );

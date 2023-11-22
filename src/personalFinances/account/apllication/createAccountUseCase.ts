@@ -8,7 +8,6 @@ export class CreateAccountUseCase {
             if (!id || !userId || !balance) {
                 return new Error('No se pudo crear la cuenta');
             }
-
             const createdAccount = await this.accountRepository.createAccount(id, userId, balance);
             if (createdAccount === null) {
                 return new Error('No se pudo crear la cuenta');
