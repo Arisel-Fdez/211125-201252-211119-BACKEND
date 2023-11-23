@@ -8,10 +8,10 @@ import CoordinateModel from '../location/infraestructure/models/coordinateModel'
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
+    host: 'roundhouse.proxy.rlwy.net',
+    database: 'railway',
     username: 'postgres',
-    password: 'yeremi224',
+    password: '-f-ABE235Eb*fBcFcF34e1DbCG3e4Cd*',
     models: [UserModel, UserPublicationModel, LikeModel, CommentModel, CoordinateModel],
 });
 
