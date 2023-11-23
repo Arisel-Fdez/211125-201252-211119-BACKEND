@@ -3,11 +3,18 @@ import { Signale } from 'signale';
 import cors from 'cors';
 import * as admin from 'firebase-admin';
 import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
+<<<<<<< HEAD
 import { initializeDatabase } from './database/sequelize';
 import { userRouter } from './user/infraestructure/userRouter';
 import { authRouter } from './auth/infraestructure/authRouter';
 import { accountRouter } from './personalFinances/account/infraestructure/accountRouter'
 import { transactionRouter } from './personalFinances/transaction/infraestructure/transactionRouter'
+=======
+import { userPublicationRouter } from './publication/infraestructure/userPublicationRouter';
+import { likeRouter } from './reaction/infraestructure/likeRouter';
+import { commentRouter } from './comment/infraestructure/commentRouter';
+import { coordinateRouter } from './location/infraestructure/coordinateRouter';
+>>>>>>> origin/211119-FullBack
 
 const app = express();
 app.use(cors()); // Usa cors como un middleware
@@ -15,10 +22,19 @@ app.use(cors()); // Usa cors como un middleware
 const signale = new Signale();
 
 app.use(express.json());
+<<<<<<< HEAD
 app.use('/user', userRouter);
 app.use("/login", authRouter);
 app.use("/account", accountRouter);
 app.use("/transaction", transactionRouter);
+=======
+app.use('/user',userRouter);
+app.use("/login",authRouter);
+app.use('/publication',userPublicationRouter);
+app.use('/reaction',likeRouter)
+app.use('/comment',commentRouter)
+app.use('/gps',coordinateRouter)
+>>>>>>> origin/211119-FullBack
 
 async function startServer() {
     try {
