@@ -32,10 +32,12 @@ async function startServer() {
 
         // Luego inicializa y conecta la base de datos
         await initializeDatabase();
+
+        const PORT = process.env.PORT || 3000;
         
         // Después inicia el servidor Express
-        app.listen(3000, () => {
-            signale.success("Server online in port 3000");
+        app.listen(PORT, () => {
+            signale.success(`Server online on port ${PORT}`);
         });
     } catch (error) {
         signale.error("Error al iniciar el servidor:", error);
