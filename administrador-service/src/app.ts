@@ -2,6 +2,7 @@ import express from 'express';
 import { Signale } from 'signale';
 import cors from 'cors';
 import * as admin from 'firebase-admin';
+import morgan from 'morgan';
 import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
 import { initializeDatabase } from './database/sequelize';
 import { userRouter } from './user/infraestructure/userRouter';
@@ -10,15 +11,18 @@ import { accountRouter } from './personalFinances/account/infraestructure/accoun
 import { transactionRouter } from './personalFinances/transaction/infraestructure/transactionRouter'
 
 const app = express();
-app.use(cors()); // Usa cors como un middleware
+app.use(cors());
+
+app.use(morgan('dev'));
 
 const signale = new Signale();
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
-app.use('/user', userRouter);
-app.use("/login", authRouter);
-app.use("/account", accountRouter);
-app.use("/transaction", transactionRouter);
+app.use('/', userRouter);
+app.use("/", authRouter);
+app.use("/", accountRouter);
+app.use("/", transactionRouter);
 
 async function startServer() {
     try {
@@ -33,8 +37,8 @@ async function startServer() {
         await initializeDatabase();
 
         // Después inicia el servidor Express
-        app.listen(3000, () => {
-            signale.success("Server online in port 3000");
+        app.listen(PORT,() => {
+            signale.success(`Servidor corriendo en http://localhost:${PORT}`);
         });
     } catch (error) {
         signale.error("Error al iniciar el servidor:", error);
