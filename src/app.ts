@@ -8,6 +8,7 @@ import { userRouter } from './user/infraestructure/userRouter';
 import { authRouter } from './auth/infraestructure/authRouter';
 import { accountRouter } from './personalFinances/account/infraestructure/accountRouter'
 import { transactionRouter } from './personalFinances/transaction/infraestructure/transactionRouter'
+//importaciones servicios de eventos
 import { createTransactionServices } from './personalFinances/transaction/infraestructure/dependencies';
 import { createAccountServices } from './personalFinances/account/infraestructure/dependencies';
 
@@ -34,8 +35,8 @@ async function startServer() {
         // Luego inicializa y conecta la base de datos
         await initializeDatabase();
 
+        //Inicializacion de los suscriptores para recibir eventos, si se cambia la estructura de carpetas, revisar imporataciones
         await createTransactionServices();
-
         await createAccountServices();
         // Después inicia el servidor Express
         app.listen(3000, () => {
