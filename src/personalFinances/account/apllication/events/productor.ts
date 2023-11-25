@@ -1,5 +1,3 @@
-// productor.ts
-
 import * as amqp from 'amqplib';
 
 export async function enviarMensaje(datos: any) {
