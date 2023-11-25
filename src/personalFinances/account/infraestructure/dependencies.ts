@@ -17,10 +17,13 @@ import { GetAllAccountsController } from "./controller/getAllAccountsController"
 
 import { DeleteAccountUseCase } from "../apllication/deleteAccountUseCase";
 import { DeleteAccountController } from "./controller/deleteAccountController";
+import { RabbitMQ } from "./services/rabbit";
 
+
+const rabbitMQ = new RabbitMQ();
 const pgsqlUsersRepository = new PgsqlTransactionRepository();
 
-const addBalanceUseCase = new AddBalanceUseCase(pgsqlUsersRepository);
+const addBalanceUseCase = new AddBalanceUseCase(pgsqlUsersRepository, rabbitMQ);
 export const addBalanceController = new AddBalanceController(addBalanceUseCase);
 
 const createAccountUseCase = new CreateAccountUseCase(pgsqlUsersRepository);
@@ -29,7 +32,7 @@ export const createAccountController = new CreateAccountController(createAccount
 const getAccountBalanceUseCase = new GetAccountBalanceUseCase(pgsqlUsersRepository);
 export const getAccountBalanceController = new GetAccountBalanceController(getAccountBalanceUseCase);
 
-const reduceBalanceUseCase = new ReduceBalanceUseCase(pgsqlUsersRepository);
+const reduceBalanceUseCase = new ReduceBalanceUseCase(pgsqlUsersRepository, rabbitMQ);
 export const reduceBalanceController = new ReduceBalanceController(reduceBalanceUseCase);
 
 const getAllAccountsUseCase = new GetAllAccountsUseCase(pgsqlUsersRepository);

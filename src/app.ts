@@ -8,6 +8,7 @@ import { userRouter } from './user/infraestructure/userRouter';
 import { authRouter } from './auth/infraestructure/authRouter';
 import { accountRouter } from './personalFinances/account/infraestructure/accountRouter'
 import { transactionRouter } from './personalFinances/transaction/infraestructure/transactionRouter'
+import { createTransactionServices } from './personalFinances/transaction/infraestructure/dependencies';
 
 const app = express();
 app.use(cors()); // Usa cors como un middleware
@@ -31,6 +32,8 @@ async function startServer() {
 
         // Luego inicializa y conecta la base de datos
         await initializeDatabase();
+
+        await createTransactionServices();
 
         // Después inicia el servidor Express
         app.listen(3000, () => {

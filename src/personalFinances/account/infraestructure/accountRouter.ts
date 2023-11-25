@@ -34,6 +34,6 @@ accountRouter.get(
 );
 
 accountRouter.delete(
-    "/delete/:id/:userId",
+    "/delete/:userId",
     deleteAccountController.run.bind(deleteAccountController)
 );

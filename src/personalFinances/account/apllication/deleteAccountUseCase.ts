@@ -3,13 +3,13 @@ import { AccountRepository } from "../domain/accountRepository";
 
 export class DeleteAccountUseCase {
     constructor(readonly accountRepository: AccountRepository) { }
-    async run(id: number, userId: number): Promise<Account | Error |String> {
+    async run(userId: number): Promise<Account | Error |String> {
         try {
-            if (!userId || !id) {
+            if (!userId) {
                 return new Error('Se deben rellenar todos los campos');
             }
 
-            const deleteAccount = await this.accountRepository.deleteAccount(id, userId);
+            const deleteAccount = await this.accountRepository.deleteAccount(userId);
             if (deleteAccount instanceof Error) {
                 return new Error('No se pudo eliminar cuenta');
             }

@@ -1,4 +1,5 @@
 import { PgsqlTransactionRepository } from "./psqlTransactionRepository";
+import { startOrderConsumer } from "./services/consume";
 
 import { CreateTransactionUseCase } from "../apllication/createTransactionUseCase";
 import { CreateTransactionController } from "./controller/createTransactionController";
@@ -19,3 +20,8 @@ export const getTransactionController = new GetTransactionController(getTransact
 
 const getAllTransacitionsUseCase = new GetAllTransacitionsUseCase(pgsqlUsersRepository);
 export const getAllTransacitionsController = new GetAllTransacitionsController(getAllTransacitionsUseCase);
+
+export async function createTransactionServices() {
+    const createTransactionUseCase = new CreateTransactionUseCase(pgsqlUsersRepository);
+    await startOrderConsumer(createTransactionUseCase);    
+}

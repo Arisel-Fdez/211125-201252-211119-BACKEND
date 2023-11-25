@@ -8,7 +8,7 @@ export class PgsqlTransactionRepository implements TransactionRepository {
     async createTransaction(date: Date, type: boolean, amount: number, description: string, categoriId: number, accountId: number): Promise<string | Transaction | Error> {
         try {
             const createdTransaction = await TransactionModel.create({ date, type, amount, description, categoriId, accountId });
-            console.log('createdTransaction', createdTransaction)
+            
             return new Transaction(createdTransaction.id, createdTransaction.date, createdTransaction.type, createdTransaction.amount, createdTransaction.description, createdTransaction.categoriId, createdTransaction.accountId);
         } catch (error) {
             return new Error('Error en la transacción:' + error);

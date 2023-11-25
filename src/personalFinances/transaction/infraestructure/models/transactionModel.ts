@@ -55,7 +55,9 @@ class TransactionModel extends Model {
     })
     public accountId!: number;
 
-    @BelongsTo(() => AccountModel)
+    @BelongsTo(() => AccountModel, {
+        onDelete: 'CASCADE' // Esta línea indica eliminación en cascada
+    })
     public account!: AccountModel;
 }
 

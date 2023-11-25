@@ -6,9 +6,9 @@ export class DeleteAccountController {
 
     async run(req: Request, res: Response) {
         try {
-            let { id, userId } = req.params;
+            let { userId } = req.params;
 
-            const result = await this.deleteAccountUseCase.run(parseInt(id), parseInt(userId));
+            const result = await this.deleteAccountUseCase.run(parseInt(userId));
 
             if (result instanceof Error) {
                 return res.status(404).send({

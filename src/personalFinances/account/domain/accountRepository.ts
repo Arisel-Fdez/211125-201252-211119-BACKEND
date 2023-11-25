@@ -5,13 +5,13 @@ export interface AccountRepository {
         userId: number,
         balance: number): Promise<Account | Error>; //post
 
-    getAccountBalance(id: number, userId: number): Promise <Account|Error >; //get
+    getAccountBalance(id: number, userId: number): Promise<Account | Error>; //get
 
-    addBalance(userId: number, balance: number): Promise <String | Error>; //put
+    addBalance(userId: number, balance: number, description: string, categoriId: number): Promise<Account | null | Error>; //put
 
-    reduceBalance(userId: number, balance: number): Promise <String | Error>; //put
+    reduceBalance(userId: number, balance: number): Promise<Account | null | Error>; //put
 
-    getAllAccounts(): Promise<Account[]|Error|string>
+    getAllAccounts(): Promise<Account[] | Error | string>
 
-    deleteAccount(id: number, userId: number): Promise<String | Error>;
+    deleteAccount( userId: number): Promise<String | Error>;
 }

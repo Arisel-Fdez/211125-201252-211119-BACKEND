@@ -3,9 +3,9 @@ import { AccountRepository } from "../domain/accountRepository";
 import AccountModel from "./models/accountModel";
 
 export class PgsqlTransactionRepository implements AccountRepository {
-    async deleteAccount(id: number, userId: number): Promise<String | Error> {
+    async deleteAccount(userId: number): Promise<String | Error> {
         try {
-            const deleteAccount = await AccountModel.destroy({ where: { id, userId } })
+            const deleteAccount = await AccountModel.destroy({ where: { userId } })
 
             if (!deleteAccount) {
                 return new Error('No se encontraron transacciones para la cuenta');
@@ -51,30 +51,28 @@ export class PgsqlTransactionRepository implements AccountRepository {
         }
     }
 
-    async addBalance(userId: number, balance: number): Promise<string | Error> {
+    async addBalance(userId: number, balance: number): Promise<Account | null | Error> {
         try {
             const account = await AccountModel.findOne({ where: { userId } });
-            if (!account) {
+            if (account instanceof Error || !account) {
                 return new Error('Cuenta no encontrada');
             }
             const oldBalance = account.balance;
             const newBalance = oldBalance + balance;
             account.balance = newBalance;
             await account.save();
-            return 'success';
+            return new Account(account.id, account.userId, account.balance);
         } catch (error) {
             console.error('Error en la transacción:', error);
-            return 'fail';
+            return null;
         }
     }
 
-
-
-    async reduceBalance(userId: number, balance: number): Promise<String | Error> {
+    async reduceBalance(userId: number, balance: number): Promise<Account | null | Error> {
         try {
             const account = await AccountModel.findOne({ where: { userId } });
-            if (!account) {
-                throw new Error('Cuenta no encontrada');
+            if (account instanceof Error || !account) {
+                return new Error('Cuenta no encontrada');
             }
 
             if (account.balance < balance) {
@@ -86,10 +84,10 @@ export class PgsqlTransactionRepository implements AccountRepository {
             account.balance = newBalance;
             await account.save();
 
-            return "success";
+            return new Account(account.id, account.userId, account.balance);
         } catch (error) {
             console.error('Error en la transacción:');
-            return "fail";
+            return null;
         }
     }
 

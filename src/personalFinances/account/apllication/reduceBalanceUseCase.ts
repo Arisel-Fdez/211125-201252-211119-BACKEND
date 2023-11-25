@@ -1,25 +1,31 @@
 import { Account } from "../domain/account";
 import { AccountRepository } from "../domain/accountRepository";
-import { enviarMensaje } from "./events/productor";
+import { RabbitMQService } from "./services/rabbit";
 
 export class ReduceBalanceUseCase {
-    constructor(readonly accountRepository: AccountRepository) { }
-    async run(userId: number, balance: number): Promise<Account | Error |String> {
+    constructor(readonly accountRepository: AccountRepository, readonly rabbit: RabbitMQService) { }
+    async run(userId: number, balance: number, description: string,categoryId: number): Promise<Account | Error | String> {
         try {
-            if (!userId || !balance) {
+            if (!userId || !balance || balance < 1 || !description || !categoryId) {
                 return new Error('Se deben rellenar todos los campos');
             }
-            const data = {
-                balance : balance,
-                type : false
-            };
-            await enviarMensaje(data);
-            
-            const createdAccount = await this.accountRepository.reduceBalance(userId, balance);
-            if (createdAccount instanceof Error) {
-                return new Error('No se pudo recuperar el balance la cuenta');
+
+            await this.rabbit.connect();
+            const reduceBalance = await this.accountRepository.reduceBalance(userId, balance);
+            if (reduceBalance instanceof Error || reduceBalance === null) {
+                return new Error('No se pudo agregar balance la cuenta');
             }
-            return createdAccount;
+
+            const data = {
+                id: reduceBalance.id,
+                balance: balance,
+                type: false,
+                description: description,
+                categoryId: categoryId
+            };
+            await this.rabbit.publishMessage('orders-exchange', 'order.paid', { data });
+
+            return reduceBalance;
         } catch (error: any) {
             return new Error('Error al recuperar balance: ' + error.message);
         }

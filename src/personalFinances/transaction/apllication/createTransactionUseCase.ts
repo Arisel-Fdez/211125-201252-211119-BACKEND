@@ -1,6 +1,5 @@
 import { Transaction } from '../domain/transaction';
 import { TransactionRepository } from '../domain/transactionRepository';
-import { recibirMensaje } from "./events/consumidor";
 
 export class CreateTransactionUseCase {
     constructor(private readonly transactionRepository: TransactionRepository) { }
@@ -17,18 +16,13 @@ export class CreateTransactionUseCase {
         console.log('first', date, type, amount, description, categoriId, accountId);
   
         if (!date || !type || !amount || !description || !categoriId || !accountId) {
-          return new Error('No se pudo crear la cuenta');
+          return new Error('Falta indormacion');
         }
-  
-        const mensaje = await recibirMensaje();
-        console.log('mensaje desde consola', mensaje);
-        console.log('mensaje.type', mensaje.type);
-        console.log('mensaje.balance', mensaje.balance);
   
         const createTransaction = await this.transactionRepository.createTransaction(
           date,
-          mensaje.type,
-          mensaje.balance,
+          type,
+          amount,
           description,
           categoriId,
           accountId
