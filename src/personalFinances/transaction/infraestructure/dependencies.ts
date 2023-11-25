@@ -1,5 +1,5 @@
 import { PgsqlTransactionRepository } from "./psqlTransactionRepository";
-import { startOrderConsumer } from "./services/consume";
+import { startOrderConsumer } from "./services/createTransactionConsume";
 
 import { CreateTransactionUseCase } from "../apllication/createTransactionUseCase";
 import { CreateTransactionController } from "./controller/createTransactionController";

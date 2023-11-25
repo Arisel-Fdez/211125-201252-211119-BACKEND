@@ -9,6 +9,7 @@ import { authRouter } from './auth/infraestructure/authRouter';
 import { accountRouter } from './personalFinances/account/infraestructure/accountRouter'
 import { transactionRouter } from './personalFinances/transaction/infraestructure/transactionRouter'
 import { createTransactionServices } from './personalFinances/transaction/infraestructure/dependencies';
+import { createAccountServices } from './personalFinances/account/infraestructure/dependencies';
 
 const app = express();
 app.use(cors()); // Usa cors como un middleware
@@ -35,6 +36,7 @@ async function startServer() {
 
         await createTransactionServices();
 
+        await createAccountServices();
         // Después inicia el servidor Express
         app.listen(3000, () => {
             signale.success("Server online in port 3000");

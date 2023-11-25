@@ -11,7 +11,7 @@ export class ReduceBalanceUseCase {
             }
 
             await this.rabbit.connect();
-            const reduceBalance = await this.accountRepository.reduceBalance(userId, balance);
+            const reduceBalance = await this.accountRepository.reduceBalance(userId, balance, "", 0);
             if (reduceBalance instanceof Error || reduceBalance === null) {
                 return new Error('No se pudo agregar balance la cuenta');
             }

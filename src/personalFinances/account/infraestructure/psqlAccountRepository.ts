@@ -2,7 +2,7 @@ import { Account } from "../domain/account";
 import { AccountRepository } from "../domain/accountRepository";
 import AccountModel from "./models/accountModel";
 
-export class PgsqlTransactionRepository implements AccountRepository {
+export class PgsqlAccountRepository implements AccountRepository {
     async deleteAccount(userId: number): Promise<String | Error> {
         try {
             const deleteAccount = await AccountModel.destroy({ where: { userId } })
@@ -34,8 +34,15 @@ export class PgsqlTransactionRepository implements AccountRepository {
 
         }
     }
-    createAccount(id: number, userId: number, balance: number): Promise<Account | Error> {
-        throw new Error("Method not implemented.");
+
+    async createAccount(userId: number): Promise<Account | Error> {
+        try {
+            const createdAccount = await AccountModel.create({ userId });
+            
+            return new Account(createdAccount.id, createdAccount.balance, createdAccount.userId);
+        } catch (error) {
+            return new Error('Error en la transacción:' + error);
+        }
     }
 
     async getAccountBalance(id: number, userId: number): Promise<Account | Error> {

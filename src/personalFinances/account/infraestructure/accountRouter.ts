@@ -1,6 +1,5 @@
 import express from "express";
 import { addBalanceController,
-    createAccountController,
     getAccountBalanceController,
     reduceBalanceController,
     getAllAccountsController,
@@ -11,11 +10,6 @@ export const accountRouter = express.Router();
 accountRouter.put(
     "/balance/add/:userId",
     addBalanceController.run.bind(addBalanceController)
-);
-
-accountRouter.post(
-    "/create",
-    createAccountController.run.bind(createAccountController)
 );
 
 accountRouter.get(

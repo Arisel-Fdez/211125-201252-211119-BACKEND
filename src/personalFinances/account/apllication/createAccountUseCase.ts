@@ -3,12 +3,12 @@ import { AccountRepository } from "../domain/accountRepository";
 
 export class CreateAccountUseCase {
     constructor(readonly accountRepository: AccountRepository) { }
-    async run(id: number, userId: number, balance: number): Promise<Account | Error> {
+    async run(userId: number): Promise<Account | Error> {
         try {
-            if (!id || !userId || !balance) {
+            if (!userId) {
                 return new Error('No se pudo crear la cuenta');
             }
-            const createdAccount = await this.accountRepository.createAccount(id, userId, balance);
+            const createdAccount = await this.accountRepository.createAccount(userId);
             if (createdAccount === null) {
                 return new Error('No se pudo crear la cuenta');
             }

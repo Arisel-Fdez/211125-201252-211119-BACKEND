@@ -1,4 +1,4 @@
-import { PgsqlTransactionRepository } from "./psqlTransactionRepository";
+import { PgsqlAccountRepository } from "./psqlAccountRepository";
 
 import { AddBalanceUseCase } from "../apllication/addBalanceUseCase";
 import { AddBalanceController } from "./controller/addBalanceController";
@@ -18,16 +18,18 @@ import { GetAllAccountsController } from "./controller/getAllAccountsController"
 import { DeleteAccountUseCase } from "../apllication/deleteAccountUseCase";
 import { DeleteAccountController } from "./controller/deleteAccountController";
 import { RabbitMQ } from "./services/rabbit";
-
+import { startAccountConsumer } from "./services/createAccountConsume";
 
 const rabbitMQ = new RabbitMQ();
-const pgsqlUsersRepository = new PgsqlTransactionRepository();
+const pgsqlUsersRepository = new PgsqlAccountRepository();
+
+export async function createAccountServices() {
+    const createAccountUseCase = new CreateAccountUseCase(pgsqlUsersRepository);
+    await startAccountConsumer(createAccountUseCase);    
+}
 
 const addBalanceUseCase = new AddBalanceUseCase(pgsqlUsersRepository, rabbitMQ);
 export const addBalanceController = new AddBalanceController(addBalanceUseCase);
-
-const createAccountUseCase = new CreateAccountUseCase(pgsqlUsersRepository);
-export const createAccountController = new CreateAccountController(createAccountUseCase);
 
 const getAccountBalanceUseCase = new GetAccountBalanceUseCase(pgsqlUsersRepository);
 export const getAccountBalanceController = new GetAccountBalanceController(getAccountBalanceUseCase);
