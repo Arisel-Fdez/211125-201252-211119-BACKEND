@@ -1,30 +1,30 @@
 import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
 import { Signale } from 'signale';
-import { initializeDatabase } from './database/sequelize'; 
+import cors from 'cors';
+import * as admin from 'firebase-admin';
+import morgan from 'morgan';
+import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
+import { initializeDatabase } from './database/sequelize';
 import { userRouter } from './user/infraestructure/userRouter';
 import { authRouter } from './auth/infraestructure/authRouter';
-import * as admin from 'firebase-admin';
-import serviceAccount from './user/infraestructure/backsocialmovil-firebase.json';
-import { userPublicationRouter } from './publication/infraestructure/userPublicationRouter';
-import { likeRouter } from './reaction/infraestructure/likeRouter';
-import { commentRouter } from './comment/infraestructure/commentRouter';
-import { coordinateRouter } from './location/infraestructure/coordinateRouter';
+import { accountRouter } from './personalFinances/account/infraestructure/accountRouter'
+import { transactionRouter } from './personalFinances/transaction/infraestructure/transactionRouter'
+//importaciones servicios de eventos
+import { createTransactionServices } from './personalFinances/transaction/infraestructure/dependencies';
+import { createAccountServices } from './personalFinances/account/infraestructure/dependencies';
 
 const app = express();
 app.use(cors());
+
 const signale = new Signale();
 app.use(morgan('dev'));
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
-app.use('/',userRouter);
-app.use("/",authRouter);
-app.use('/',userPublicationRouter);
-app.use('/',likeRouter)
-app.use('/',commentRouter)
-app.use('/',coordinateRouter)
+app.use('/', userRouter);
+app.use("/", authRouter);
+app.use("/", accountRouter);
+app.use("/", transactionRouter);
 
 async function startServer() {
     try {
@@ -32,13 +32,15 @@ async function startServer() {
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
             storageBucket: 'backsocialmovil.appspot.com'
-        });          
+        });
         signale.success("Firebase Admin initialized successfully");
 
         // Luego inicializa y conecta la base de datos
         await initializeDatabase();
 
-        
+        //Inicializacion de los suscriptores para recibir eventos, si se cambia la estructura de carpetas, revisar imporataciones
+        await createTransactionServices();
+        await createAccountServices();
         // Después inicia el servidor Express
         app.listen(PORT,() => {
             signale.success(`Servidor corriendo en http://localhost:${PORT}`);
@@ -48,5 +50,4 @@ async function startServer() {
     }
 }
 
-// Inicia todo
 startServer();

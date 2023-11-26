@@ -36,30 +36,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
-const morgan_1 = __importDefault(require("morgan"));
 const signale_1 = require("signale");
+const cors_1 = __importDefault(require("cors"));
+const admin = __importStar(require("firebase-admin"));
+const morgan_1 = __importDefault(require("morgan"));
+const backsocialmovil_firebase_json_1 = __importDefault(require("./user/infraestructure/backsocialmovil-firebase.json"));
 const sequelize_1 = require("./database/sequelize");
 const userRouter_1 = require("./user/infraestructure/userRouter");
 const authRouter_1 = require("./auth/infraestructure/authRouter");
-const admin = __importStar(require("firebase-admin"));
-const backsocialmovil_firebase_json_1 = __importDefault(require("./user/infraestructure/backsocialmovil-firebase.json"));
-const userPublicationRouter_1 = require("./publication/infraestructure/userPublicationRouter");
-const likeRouter_1 = require("./reaction/infraestructure/likeRouter");
-const commentRouter_1 = require("./comment/infraestructure/commentRouter");
-const coordinateRouter_1 = require("./location/infraestructure/coordinateRouter");
+const accountRouter_1 = require("./personalFinances/account/infraestructure/accountRouter");
+const transactionRouter_1 = require("./personalFinances/transaction/infraestructure/transactionRouter");
+//importaciones servicios de eventos
+const dependencies_1 = require("./personalFinances/transaction/infraestructure/dependencies");
+const dependencies_2 = require("./personalFinances/account/infraestructure/dependencies");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 const signale = new signale_1.Signale();
 app.use((0, morgan_1.default)('dev'));
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 app.use(express_1.default.json());
 app.use('/', userRouter_1.userRouter);
 app.use("/", authRouter_1.authRouter);
-app.use('/', userPublicationRouter_1.userPublicationRouter);
-app.use('/', likeRouter_1.likeRouter);
-app.use('/', commentRouter_1.commentRouter);
-app.use('/', coordinateRouter_1.coordinateRouter);
+app.use("/", accountRouter_1.accountRouter);
+app.use("/", transactionRouter_1.transactionRouter);
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -71,6 +70,9 @@ function startServer() {
             signale.success("Firebase Admin initialized successfully");
             // Luego inicializa y conecta la base de datos
             yield (0, sequelize_1.initializeDatabase)();
+            //Inicializacion de los suscriptores para recibir eventos, si se cambia la estructura de carpetas, revisar imporataciones
+            yield (0, dependencies_1.createTransactionServices)();
+            yield (0, dependencies_2.createAccountServices)();
             // Después inicia el servidor Express
             app.listen(PORT, () => {
                 signale.success(`Servidor corriendo en http://localhost:${PORT}`);
@@ -81,5 +83,4 @@ function startServer() {
         }
     });
 }
-// Inicia todo
 startServer();

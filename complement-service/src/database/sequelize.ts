@@ -17,6 +17,7 @@ export const sequelize = new Sequelize({
 });
 
 
+
 export async function initializeDatabase() {
     try {
         await sequelize.authenticate();
