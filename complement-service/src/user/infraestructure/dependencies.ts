@@ -6,12 +6,14 @@ import { ListAllUsersController } from "./controller/listAllUserController";
 import { ListAllUserUseCase } from "../application/listAllUserUseCase";
 import { DeleteUserUseCase } from "../application/deleteUserUseCase";
 import { DeleteUserController } from "./controller/deleteUserController";
+import { RabbitMQ } from "./services/rabbit";
 
 
-
+const rabbitMQ = new RabbitMQ();
 export const pgsqlUsersRepository = new PgsqlUserRepository();
 
-export const addUsersUseCase = new AddUserUseCase(pgsqlUsersRepository);
+//nueva inportacion para usar con eventos
+export const addUsersUseCase = new AddUserUseCase(pgsqlUsersRepository, rabbitMQ);
 export const addUsersController = new AddUsersController(addUsersUseCase);
 
 export const listAllUsersUseCase = new ListAllUserUseCase(pgsqlUsersRepository);
