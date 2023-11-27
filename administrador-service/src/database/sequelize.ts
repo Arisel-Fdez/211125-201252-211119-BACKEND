@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { Sequelize } from 'sequelize-typescript';
-import UserModel from '../user/infraestructure/models/userModel';
 import AccountModel from '../personalFinances/account/infraestructure/models/accountModel';
+import UserModel from '../personalFinances/account/infraestructure/models/userModel';
 import TransactionModel from '../personalFinances/transaction/infraestructure/models/transactionModel';
 import CategoryModel from '../personalFinances/category/infraestructure/models/categoryModel';
 
@@ -12,7 +12,7 @@ export const sequelize = new Sequelize({
     database: 'railway',
     username: 'postgres',
     password: '-f-ABE235Eb*fBcFcF34e1DbCG3e4Cd*',
-    models: [UserModel, AccountModel, TransactionModel, CategoryModel],
+    models: [UserModel,AccountModel, TransactionModel, CategoryModel],
 });
 
 export async function initializeDatabase() {

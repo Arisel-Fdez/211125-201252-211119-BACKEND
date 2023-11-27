@@ -14,7 +14,6 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 //server1
-app.use('/api/v1/user', proxy('http://localhost:3001'));
 app.use('/api/v1/login', proxy('http://localhost:3001'));
 app.use('/api/v1/accout', proxy('http://localhost:3001'));
 app.use('/api/v1/transaction', proxy('http://localhost:3001'));

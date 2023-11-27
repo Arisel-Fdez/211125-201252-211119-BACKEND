@@ -1,5 +1,5 @@
 import { Model, DataType, Table, Column, ForeignKey, BelongsTo, AfterCreate} from 'sequelize-typescript';
-import UserModel from '../../../../user/infraestructure/models/userModel';
+import UserModel from './userModel';
 
 @Table({
     tableName: 'account',
