@@ -14,8 +14,10 @@ class CommentModel extends Model {
         allowNull: false
     })
     public userId!: number;
-    
-    @BelongsTo(() => UserModel)
+
+    @BelongsTo(() => UserModel, {
+        onDelete: 'CASCADE' // Esta línea indica eliminación en cascada
+    })
     public user!: UserModel;
 
     @ForeignKey(() => UserPublicationModel)
