@@ -58,5 +58,17 @@ class PgsqlCommentRepository {
             });
         });
     }
+    getCommentsByPublicationId(publicationId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const comments = yield commentModel_1.default.findAll({
+                where: { publicationId },
+                include: [{ model: userModel_1.default, attributes: ['name'] }]
+            });
+            return comments.map(comment => {
+                var _a;
+                return new comment_1.Comment(comment.id, comment.userId, comment.publicationId, comment.content, (_a = comment.user) === null || _a === void 0 ? void 0 : _a.name);
+            });
+        });
+    }
 }
 exports.PgsqlCommentRepository = PgsqlCommentRepository;

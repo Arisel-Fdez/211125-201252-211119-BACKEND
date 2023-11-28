@@ -11,13 +11,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddUserUseCase = void 0;
 class AddUserUseCase {
-    constructor(userRepository) {
+    constructor(userRepository, rabbit) {
         this.userRepository = userRepository;
+        this.rabbit = rabbit;
     }
     run(name, last_name, email, password, profilePicture) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                //conexion a rabbit
+                yield this.rabbit.connect();
                 const createdUser = yield this.userRepository.addUser(name, last_name, email, password, profilePicture);
+                if (createdUser === null) {
+                    console.error("Error in addUserUseCase:");
+                    return null;
+                }
+                //Creacion y publicacion de data con mensaje
+                const data = {
+                    id: createdUser.id,
+                };
+                yield this.rabbit.publishMessage('create-act', 'create.acount', { data });
                 return createdUser;
             }
             catch (error) {

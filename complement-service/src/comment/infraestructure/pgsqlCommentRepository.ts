@@ -44,4 +44,18 @@ export class PgsqlCommentRepository implements CommentRepository {
             comment.user?.name // Suponiendo que 'name' es el campo para el nombre en UserModel
         ));
     }
+
+    async getCommentsByPublicationId(publicationId: number): Promise<Comment[]> {
+        const comments = await CommentModel.findAll({
+            where: { publicationId },
+            include: [{ model: UserModel, attributes: ['name'] }]
+        });
+        return comments.map(comment => new Comment(
+            comment.id,
+            comment.userId,
+            comment.publicationId,
+            comment.content,
+            comment.user?.name
+        ));
+    }
 }

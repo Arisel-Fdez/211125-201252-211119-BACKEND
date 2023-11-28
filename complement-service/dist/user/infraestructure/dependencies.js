@@ -8,8 +8,11 @@ const listAllUserController_1 = require("./controller/listAllUserController");
 const listAllUserUseCase_1 = require("../application/listAllUserUseCase");
 const deleteUserUseCase_1 = require("../application/deleteUserUseCase");
 const deleteUserController_1 = require("./controller/deleteUserController");
+const rabbit_1 = require("./services/rabbit");
+const rabbitMQ = new rabbit_1.RabbitMQ();
 exports.pgsqlUsersRepository = new pgsqlUserRepository_1.PgsqlUserRepository();
-exports.addUsersUseCase = new addUserUseCase_1.AddUserUseCase(exports.pgsqlUsersRepository);
+//nueva inportacion para usar con eventos
+exports.addUsersUseCase = new addUserUseCase_1.AddUserUseCase(exports.pgsqlUsersRepository, rabbitMQ);
 exports.addUsersController = new addUserController_1.AddUsersController(exports.addUsersUseCase);
 exports.listAllUsersUseCase = new listAllUserUseCase_1.ListAllUserUseCase(exports.pgsqlUsersRepository);
 exports.listAllUsersController = new listAllUserController_1.ListAllUsersController(exports.listAllUsersUseCase);

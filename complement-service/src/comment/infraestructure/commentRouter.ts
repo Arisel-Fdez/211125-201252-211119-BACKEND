@@ -1,11 +1,16 @@
 import  express  from "express";
 
 import { 
-    commentController, deleteCommentController, getCommentsByUserIdController
+    commentController, deleteCommentController, getCommentsByPublicationIdController, getCommentsByUserIdController
     // otros controladores que necesite
 } from "./dependencies";
 
+import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
+
 export const commentRouter = express.Router();
+
+// Middleware de autenticación
+commentRouter.use(authMiddleware);
 
 // Ruta para agregar un nuevo comentario a una publicación
 commentRouter.post(
@@ -23,3 +28,9 @@ commentRouter.get(
     "/user/:userId/comments", 
     getCommentsByUserIdController.run.bind(getCommentsByUserIdController)
 );
+
+commentRouter.get(
+    "/publication/:publicationId", 
+    getCommentsByPublicationIdController.run.bind(getCommentsByPublicationIdController)
+);
+

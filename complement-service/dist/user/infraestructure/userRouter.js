@@ -8,11 +8,6 @@ const express_1 = __importDefault(require("express"));
 const dependencies_1 = require("./dependencies");
 //import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 exports.userRouter = express_1.default.Router();
-// Ruta para agregar un nuevo usuario
 exports.userRouter.post("/create", dependencies_1.addUsersController.run.bind(dependencies_1.addUsersController));
-// Ruta para obtener todos los usuarios
 exports.userRouter.get("/", dependencies_1.listAllUsersController.run.bind(dependencies_1.listAllUsersController));
-// Aplicamos el middleware de autenticación a todas las rutas de `userRouter`
-//userRouter.use(authMiddleware);
-// Ruta para eliminados usuarios
 exports.userRouter.delete("/delete/:id", dependencies_1.deleteUserController.run.bind(dependencies_1.deleteUserController));
