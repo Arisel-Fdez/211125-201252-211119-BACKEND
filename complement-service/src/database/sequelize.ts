@@ -9,10 +9,10 @@ import CoordinateModel from '../location/infraestructure/models/coordinateModel'
 export const sequelize = new Sequelize({
     dialect: 'postgres',
     host: 'roundhouse.proxy.rlwy.net',
-    port: 12463, // Asegúrate de usar el puerto correcto para tu base de datos
+    port: 42341, // Asegúrate de usar el puerto correcto para tu base de datos
     database: 'railway',
     username: 'postgres',
-    password: '-f-ABE235Eb*fBcFcF34e1DbCG3e4Cd*',
+    password: 'fD4BDb2-E*5g2CbBegFfC5d523Ee15C1',
     models: [UserModel, UserPublicationModel, LikeModel, CommentModel, CoordinateModel],
 });
 
