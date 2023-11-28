@@ -1,7 +1,7 @@
 import  express  from "express";
 
 import { 
-    commentController, deleteCommentController, getCommentsByUserIdController
+    commentController, deleteCommentController, getCommentsByPublicationIdController, getCommentsByUserIdController
     // otros controladores que necesite
 } from "./dependencies";
 
@@ -23,3 +23,9 @@ commentRouter.get(
     "/user/:userId/comments", 
     getCommentsByUserIdController.run.bind(getCommentsByUserIdController)
 );
+
+commentRouter.get(
+    "/publication/:publicationId", 
+    getCommentsByPublicationIdController.run.bind(getCommentsByPublicationIdController)
+);
+
