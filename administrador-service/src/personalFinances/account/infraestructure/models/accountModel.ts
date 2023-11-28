@@ -20,8 +20,10 @@ class AccountModel extends Model {
     })
     public userId!: number;
 
-    @BelongsTo(() => UserModel)
-    public user!: UserModel;
+    @BelongsTo(() => AccountModel, {
+        onDelete: 'CASCADE' // Esta línea indica eliminación en cascada
+    })
+    public account!: AccountModel;
 
     @Column({
         type: DataType.INTEGER.UNSIGNED,
