@@ -14,9 +14,9 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 //server1
-app.use('/api/v1/login', proxy('http://localhost:3001'));
-app.use('/api/v1/accout', proxy('http://localhost:3001'));
-app.use('/api/v1/transaction', proxy('http://localhost:3001'));
+app.use('/api/v1/login', proxy('administrador-service.up.railway.app'));
+app.use('/api/v1/accout', proxy('administrador-service.up.railway.app'));
+app.use('/api/v1/transaction', proxy('administrador-service.up.railway.app'));
 //server 2
 app.use('/api/v1/user',proxy('https://open-bait-production.up.railway.app'));
 app.use('/api/v1/login',proxy('https://open-bait-production.up.railway.app'));
