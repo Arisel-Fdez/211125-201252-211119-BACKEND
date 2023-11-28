@@ -7,11 +7,11 @@ import CategoryModel from '../personalFinances/category/infraestructure/models/c
 
 export const sequelize = new Sequelize({
     dialect: 'postgres',
-    host: 'roundhouse.proxy.rlwy.net',
+    host: 'monorail.proxy.rlwy.net',
     port: 12463, // Asegúrate de usar el puerto correcto para tu base de datos
     database: 'railway',
     username: 'postgres',
-    password: '-f-ABE235Eb*fBcFcF34e1DbCG3e4Cd*',
+    password: '3BfeGBdB*6G*bCBdDEG44b6315eAgFGA',
     models: [UserModel,AccountModel, TransactionModel, CategoryModel],
 });
 
