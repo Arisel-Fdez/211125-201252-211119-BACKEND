@@ -18,12 +18,12 @@ app.use('/api/v1/login', proxy('http://localhost:3001'));
 app.use('/api/v1/accout', proxy('http://localhost:3001'));
 app.use('/api/v1/transaction', proxy('http://localhost:3001'));
 //server 2
-app.use('/api/v1/user',proxy('http://localhost:6809'));
-app.use('/api/v1/login',proxy('http://localhost:6809'));
-app.use('/api/v1/publication',proxy('http://localhost:6809'));
-app.use('/api/v1/reaction',proxy('http://localhost:6809'));
-app.use('/api/v1/comment',proxy('http://localhost:6809'));
-app.use('/api/v1/gps',proxy('http://localhost:6809'));
+app.use('/api/v1/user',proxy('https://open-bait-production.up.railway.app'));
+app.use('/api/v1/login',proxy('https://open-bait-production.up.railway.app'));
+app.use('/api/v1/publication',proxy('https://open-bait-production.up.railway.app'));
+app.use('/api/v1/reaction',proxy('https://open-bait-production.up.railway.app'));
+app.use('/api/v1/comment',proxy('https://open-bait-production.up.railway.app'));
+app.use('/api/v1/gps',proxy('https://open-bait-production.up.railway.app'));
 
 app.listen(PORT,() => {
     signale.success(`Servidor corriendo en http://localhost:${PORT}`);
