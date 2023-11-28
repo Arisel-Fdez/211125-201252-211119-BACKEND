@@ -1,7 +1,7 @@
 import amqp from 'amqplib';
 
 export async function setupRabbitMQ() {
-    const connection = await amqp.connect('amqp://127.0.0.1');
+    const connection = await amqp.connect('amqp://production-back.up.railway.app');
     const channel = await connection.createChannel();
 
     const queueName = 'act-queue';
