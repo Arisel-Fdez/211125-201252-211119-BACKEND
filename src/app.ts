@@ -13,7 +13,7 @@ import { getUserController } from './getUserController';
 
 const app = express();
 const signale = new Signale();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 app.use(express.json());
 app.get('/', getUserController);
