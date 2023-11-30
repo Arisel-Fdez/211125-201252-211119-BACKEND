@@ -33,7 +33,7 @@ async function startServer() {
         // Luego inicializa y conecta la base de datos
         await initializeDatabase();
 
-        const PORT = process.env.PORT || 3000;
+        const PORT = process.env.PORT || 3002;
         
         // Después inicia el servidor Express
         app.listen(PORT, () => {
