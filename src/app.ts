@@ -9,14 +9,14 @@ import { userPublicationRouter } from './publication/infraestructure/userPublica
 import { likeRouter } from './reaction/infraestructure/likeRouter';
 import { commentRouter } from './comment/infraestructure/commentRouter';
 import { coordinateRouter } from './location/infraestructure/coordinateRouter';
-import { getUserController } from './getUserController';
+import rootRouter from './aws/ rootRouter';
 
 const app = express();
 const signale = new Signale();
 const PORT = process.env.PORT || 3002;
 
 app.use(express.json());
-app.get('/', getUserController);
+app.use('/', rootRouter);
 app.use('/user',userRouter);
 app.use("/login",authRouter);
 app.use('/publication',userPublicationRouter);
