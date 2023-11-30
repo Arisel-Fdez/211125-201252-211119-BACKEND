@@ -9,12 +9,14 @@ import { userPublicationRouter } from './publication/infraestructure/userPublica
 import { likeRouter } from './reaction/infraestructure/likeRouter';
 import { commentRouter } from './comment/infraestructure/commentRouter';
 import { coordinateRouter } from './location/infraestructure/coordinateRouter';
+import { getUserController } from './getUserController';
 
 const app = express();
 const signale = new Signale();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.get('/', getUserController);
 app.use('/user',userRouter);
 app.use("/login",authRouter);
 app.use('/publication',userPublicationRouter);
