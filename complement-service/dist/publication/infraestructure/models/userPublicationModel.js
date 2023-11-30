@@ -22,7 +22,9 @@ __decorate([
     })
 ], UserPublicationModel.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_2.BelongsTo)(() => userModel_1.default)
+    (0, sequelize_typescript_2.BelongsTo)(() => userModel_1.default, {
+        onDelete: 'CASCADE' // Esta línea indica eliminación en cascada
+    })
 ], UserPublicationModel.prototype, "user", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({

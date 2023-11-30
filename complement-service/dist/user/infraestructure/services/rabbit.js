@@ -21,7 +21,7 @@ class RabbitMQ {
     }
     connect() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.connection = yield amqplib_1.default.connect('amqp://127.0.0.1');
+            this.connection = yield amqplib_1.default.connect('amqp://open-bait-production.up.railway.app');
         });
     }
     publishMessage(exchange, routingKey, message) {

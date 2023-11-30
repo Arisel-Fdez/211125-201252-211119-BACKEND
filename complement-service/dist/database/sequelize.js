@@ -22,10 +22,10 @@ const coordinateModel_1 = __importDefault(require("../location/infraestructure/m
 exports.sequelize = new sequelize_typescript_1.Sequelize({
     dialect: 'postgres',
     host: 'roundhouse.proxy.rlwy.net',
-    port: 12463, // Asegúrate de usar el puerto correcto para tu base de datos
+    port: 42341, // Asegúrate de usar el puerto correcto para tu base de datos
     database: 'railway',
     username: 'postgres',
-    password: '-f-ABE235Eb*fBcFcF34e1DbCG3e4Cd*',
+    password: 'fD4BDb2-E*5g2CbBegFfC5d523Ee15C1',
     models: [userModel_1.default, userPublicationModel_1.default, likeModel_1.default, commentModel_1.default, coordinateModel_1.default],
 });
 function initializeDatabase() {

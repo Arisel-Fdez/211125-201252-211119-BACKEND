@@ -23,7 +23,9 @@ __decorate([
     })
 ], CommentModel.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_2.BelongsTo)(() => userModel_1.default)
+    (0, sequelize_typescript_2.BelongsTo)(() => userModel_1.default, {
+        onDelete: 'CASCADE' // Esta línea indica eliminación en cascada
+    })
 ], CommentModel.prototype, "user", void 0);
 __decorate([
     (0, sequelize_typescript_2.ForeignKey)(() => userPublicationModel_1.default),
