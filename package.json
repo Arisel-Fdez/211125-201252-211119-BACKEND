@@ -4,7 +4,7 @@
   "description": "movil",
   "main": "src/app.ts",
   "scripts": {
-    "start": "npm i tsc && node dist/app.js",
+    "start": "npx tsc && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "FdezDev",
@@ -28,7 +28,6 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.33.0",
     "sequelize-typescript": "^2.1.5",
-    "signale": "^1.4.0",
-    "tsc": "^2.0.4"
+    "signale": "^1.4.0"
   }
 }
