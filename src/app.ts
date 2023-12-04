@@ -20,7 +20,7 @@ app.use('/api/v1/login', proxy('http://gateway-1-env.eba-bm387mch.us-east-1.elas
 app.use('/api/v1/accout', proxy('http://gateway-1-env.eba-bm387mch.us-east-1.elasticbeanstalk.com'));
 app.use('/api/v1/transaction', proxy('http://gateway-1-env.eba-bm387mch.us-east-1.elasticbeanstalk.com'));
 //server 2
-app.use('/api/v1/user',proxy('http://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com'));
+app.use('/api/v1/users',proxy('http://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com'));
 app.use('/api/v1/login',proxy('http://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com'));
 app.use('/api/v1/publication',proxy('http://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com'));
 app.use('/api/v1/reaction',proxy('http://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com'));
