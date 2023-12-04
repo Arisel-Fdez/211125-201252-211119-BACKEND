@@ -5,12 +5,12 @@ import {
     // otros controladores que necesite
 } from "./dependencies";
 
-import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
+//import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 
 export const commentRouter = express.Router();
 
 // Middleware de autenticación
-commentRouter.use(authMiddleware);
+//commentRouter.use(authMiddleware);
 
 // Ruta para agregar un nuevo comentario a una publicación
 commentRouter.post(

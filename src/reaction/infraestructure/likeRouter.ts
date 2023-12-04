@@ -1,11 +1,11 @@
 import express from "express";
 import { likeController } from "./dependencies"
-import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
+//import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 
 
 
 export const likeRouter = express.Router();
-likeRouter.use(authMiddleware);
+//likeRouter.use(authMiddleware);
 
 likeRouter.post(
     "/add",

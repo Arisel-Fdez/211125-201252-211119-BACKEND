@@ -10,13 +10,13 @@ import {
     viewVideosController,
     getUserPublicationsController
 } from "./dependencies";
-import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
+//import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 
 export const userPublicationRouter = express.Router();
 
 
 // Middleware de autenticación
-userPublicationRouter.use(authMiddleware);
+//userPublicationRouter.use(authMiddleware);
 
 // Ruta para agregar una nueva publicación
 userPublicationRouter.post(
