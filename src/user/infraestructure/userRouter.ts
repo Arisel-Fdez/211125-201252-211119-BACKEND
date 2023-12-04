@@ -1,6 +1,5 @@
 import express from "express";
 import { addUsersController, listAllUsersController, deleteUserController } from "./dependencies";
-//import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 
 export const userRouter = express.Router();
 
