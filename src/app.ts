@@ -11,6 +11,7 @@ import { userPublicationRouter } from './publication/infraestructure/userPublica
 import { likeRouter } from './reaction/infraestructure/likeRouter';
 import { commentRouter } from './comment/infraestructure/commentRouter';
 import { coordinateRouter } from './location/infraestructure/coordinateRouter';
+import { Routeroot } from './aws/infraestructure/routeroot';
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,7 @@ app.use(morgan('dev'));
 const PORT = process.env.PORT || 3002;
 
 app.use(express.json());
+app.use('/',Routeroot);
 app.use('/',userRouter);
 app.use("/",authRouter);
 app.use('/',userPublicationRouter);
