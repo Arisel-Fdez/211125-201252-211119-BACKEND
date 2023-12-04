@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 //server1
 app.use('/',Routeroot);
-app.use('/api/v1/login', proxy('http://gateway-1-env.eba-bm387mch.us-east-1.elasticbeanstalk.com'));
+//app.use('/api/v1/login', proxy('http://gateway-1-env.eba-bm387mch.us-east-1.elasticbeanstalk.com'));
 app.use('/api/v1/accout', proxy('http://gateway-1-env.eba-bm387mch.us-east-1.elasticbeanstalk.com'));
 app.use('/api/v1/transaction', proxy('http://gateway-1-env.eba-bm387mch.us-east-1.elasticbeanstalk.com'));
 //server 2
