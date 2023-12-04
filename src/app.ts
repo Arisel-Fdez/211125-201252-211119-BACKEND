@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3002;
 app.use(express.json());
 app.use('/',Routeroot);
 app.use('/user',userRouter);
-app.use("/auth",authRouter);
+app.use("/login",authRouter);
 app.use('/public',userPublicationRouter);
 app.use('/like',likeRouter)
 app.use('/commet',commentRouter)
