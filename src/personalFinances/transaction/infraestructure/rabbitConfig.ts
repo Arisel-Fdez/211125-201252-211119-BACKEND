@@ -1,7 +1,7 @@
 import amqp from 'amqplib';
 
 export async function setupRabbitMQ() {
-    const connection = await amqp.connect('amqp://open-bait-production.up.railway.app');
+    const connection = await amqp.connect('amqp://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com');
     const channel = await connection.createChannel();
 
     const queueName = 'inventory-queue';

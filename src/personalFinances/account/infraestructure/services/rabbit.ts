@@ -6,7 +6,7 @@ export class RabbitMQ implements RabbitMQService {
     private connection: amqp.Connection | null = null;
 
     async connect(): Promise<void> {
-        this.connection = await amqp.connect('amqp://127.0.0.1');
+        this.connection = await amqp.connect('amqp://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com');
     }
 
     async publishMessage(exchange: string, routingKey: string, message: any): Promise<void> {
