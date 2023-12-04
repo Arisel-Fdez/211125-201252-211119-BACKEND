@@ -9,6 +9,7 @@ import { transactionRouter } from './personalFinances/transaction/infraestructur
 //importaciones servicios de eventos
 import { createTransactionServices } from './personalFinances/transaction/infraestructure/dependencies';
 import { createAccountServices } from './personalFinances/account/infraestructure/dependencies';
+import { Routeroot } from './aws/infraestructure/routeroot';
 
 const app = express();
 app.use(cors());
@@ -17,7 +18,9 @@ const signale = new Signale();
 app.use(morgan('dev'));
 const PORT = process.env.PORT || 3001;
 
+
 app.use(express.json());
+app.use("/",Routeroot)
 app.use("/", accountRouter);
 app.use("/", transactionRouter);
 
