@@ -4,6 +4,7 @@ import morgan from 'morgan';
 
 import dotenv from 'dotenv';
 import { Signale } from "signale";
+import { Routeroot } from './aws/infraestructure/routeroot';
 
 const app:Application = express();
 const signale = new Signale();
@@ -14,6 +15,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 //server1
+app.use('/',Routeroot);
 app.use('/api/v1/login', proxy('administrador-service.up.railway.app'));
 app.use('/api/v1/accout', proxy('administrador-service.up.railway.app'));
 app.use('/api/v1/transaction', proxy('administrador-service.up.railway.app'));
