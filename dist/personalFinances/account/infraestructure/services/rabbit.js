@@ -16,7 +16,6 @@ exports.RabbitMQ = void 0;
 const amqplib_1 = __importDefault(require("amqplib"));
 class RabbitMQ {
     constructor() {
-        // Servicio y conexciodn de rabbit
         this.connection = null;
     }
     connect() {

@@ -12,28 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RabbitMQ = void 0;
+exports.setupRabbitMQ = void 0;
 const amqplib_1 = __importDefault(require("amqplib"));
-class RabbitMQ {
-    constructor() {
-        // Servicio y conexciodn de rabbit
-        this.connection = null;
-    }
-    connect() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.connection = yield amqplib_1.default.connect('amqp://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com');
-        });
-    }
-    publishMessage(exchange, routingKey, message) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!this.connection) {
-                throw new Error('RabbitMQ connection not established');
-            }
-            const channel = yield this.connection.createChannel();
-            channel.assertExchange(exchange, 'direct', { durable: false });
-            channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)));
-            console.log('Mensaje enviado [Y]', message);
-        });
-    }
+function setupRabbitMQ() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const connection = yield amqplib_1.default.connect('amqp://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com');
+        const channel = yield connection.createChannel();
+        const queueName = 'inventory-queue';
+        const exchangeName = 'orders-exchange';
+        const routingKey = 'order.paid';
+        yield channel.assertQueue(queueName);
+        yield channel.bindQueue(queueName, exchangeName, routingKey);
+        return { connection, channel, queueName };
+    });
 }
-exports.RabbitMQ = RabbitMQ;
+exports.setupRabbitMQ = setupRabbitMQ;
