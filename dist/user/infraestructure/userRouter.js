@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const dependencies_1 = require("./dependencies");
-//import { authMiddleware } from "../../auth/middlewares/authMiddleware"; 
 exports.userRouter = express_1.default.Router();
 exports.userRouter.post("/create", dependencies_1.addUsersController.run.bind(dependencies_1.addUsersController));
 exports.userRouter.get("/", dependencies_1.listAllUsersController.run.bind(dependencies_1.listAllUsersController));

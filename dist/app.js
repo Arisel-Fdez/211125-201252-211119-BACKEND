@@ -56,12 +56,12 @@ app.use((0, morgan_1.default)('dev'));
 const PORT = process.env.PORT || 3002;
 app.use(express_1.default.json());
 app.use('/', routeroot_1.Routeroot);
-app.use('/', userRouter_1.userRouter);
-app.use("/", authRouter_1.authRouter);
-app.use('/', userPublicationRouter_1.userPublicationRouter);
-app.use('/', likeRouter_1.likeRouter);
-app.use('/', commentRouter_1.commentRouter);
-app.use('/', coordinateRouter_1.coordinateRouter);
+app.use('/user', userRouter_1.userRouter);
+app.use("/login", authRouter_1.authRouter);
+app.use('/public', userPublicationRouter_1.userPublicationRouter);
+app.use('/like', likeRouter_1.likeRouter);
+app.use('/commet', commentRouter_1.commentRouter);
+app.use('/cord', coordinateRouter_1.coordinateRouter);
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

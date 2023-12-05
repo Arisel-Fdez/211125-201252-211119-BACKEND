@@ -6,10 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userPublicationRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const dependencies_1 = require("./dependencies");
-const authMiddleware_1 = require("../../auth/middlewares/authMiddleware");
 exports.userPublicationRouter = express_1.default.Router();
-// Middleware de autenticación
-exports.userPublicationRouter.use(authMiddleware_1.authMiddleware);
 // Ruta para agregar una nueva publicación
 exports.userPublicationRouter.post("/publish", dependencies_1.userPublicationController.run.bind(dependencies_1.userPublicationController));
 // Ruta para ver todas las publicaciones
