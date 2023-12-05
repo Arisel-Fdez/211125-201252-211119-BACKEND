@@ -6,7 +6,7 @@ export class RabbitMQ implements RabbitMQService {
     private connection: amqp.Connection | null = null;
 
     async connect(): Promise<void> {
-        this.connection = await amqp.connect('amqp://service-2-env.eba-ghifcebq.us-east-1.elasticbeanstalk.com');
+        this.connection = await amqp.connect('amqp://127.0.0.1');
     }
 
     async publishMessage(exchange: string, routingKey: string, message: any): Promise<void> {
@@ -15,7 +15,7 @@ export class RabbitMQ implements RabbitMQService {
         }
         
         const channel = await this.connection.createChannel();
-        channel.assertExchange(exchange, 'direct', { durable: false });
+        await channel.assertExchange('create-act', 'direct', { durable: true });
         channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(message)));
         console.log('Mensaje enviado [Y]', message)
     }
