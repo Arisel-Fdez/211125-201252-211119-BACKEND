@@ -21,8 +21,8 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use("/",Routeroot)
-app.use("/", accountRouter);
-app.use("/", transactionRouter);
+app.use("/accoun", accountRouter);
+app.use("/trans", transactionRouter);
 
 async function startServer() {
     try {
